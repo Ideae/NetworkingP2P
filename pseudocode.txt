@@ -1,0 +1,150 @@
+public class Utils
+{
+	public int Hash(String contentName){}
+}
+public class ServerRecord{
+	String DSName;
+	String IPAddress;
+}
+public class ContentRecord{
+	String ContentName;
+	Srting ContentOwnerIP;
+}
+ 
+ 
+public class DirectoryServer
+{
+	//The information for this server
+	private ServerRecord id;
+	private ServerRecord predecessor;
+	private ServerRecord successor1;
+	private ServerRecord successor2;
+	private HashTable<String, ContentRecord> contentRecords;
+	
+	
+	public void Listen(){
+	
+		while(true)
+		{
+		//blocking setup of a datagram listener;
+		
+		//Upon determining the type and validity of the message sent to the server,
+		//Start a new thread that calls the appropriate private method.
+		}
+	}
+	
+	public void Send(Datagram data, String destinationIP){
+		//Send Datagram to the destination
+	}
+	
+	private boolean PingTest(){
+		//checks aliveness of successor and predecessor.
+		//if check failed, server reconfiguration happens (Not implemented as per assignment definition)
+	}
+	
+	private void Init(ServerRecord destination, List<ServerRecord> result){
+		//if we're the destination, we have completed the request for its original requester return it using send()
+		//otherwise add id to result and relay to the successor;
+	}
+	private boolean Inform(ContentRecord record){
+		//Hash the record to ensure that it belongs here;
+		//add to contentRecords
+		//
+	}
+	private ContentRecord Query(String name){
+		//returns record with given name.
+	}
+	private boolean Exit(String clientIP, ServerRecord entry){
+		//if we have any entries for this clientIP, remove them and relay the request to successor;
+	}
+	
+}
+public class P2PClient{
+ 
+	private HashMap<Int, ServerRecord> DHTRecords;
+	private String myIP;
+	public void Listen(){
+	
+		while(true)
+		{
+		//blocking setup of a datagram listener;
+		
+		//Upon determining the type and validity of the message sent to the server,
+		//Start a new thread that calls the appropriate private method.
+		}
+	}
+	
+	public void Send(Datagram data, String destinationIP){
+		//Send Datagram to the destination
+	}
+	
+	private void Init(String entryIP){
+		//Populate DHTRecords with response from DHT ring.
+	}
+	
+	private ContentRecord Query(String name){
+		//returns record with given name.	
+	}
+	private boolean RequestFile (ContentRecord record){
+		//Contacts server specified by record and saves it to the shared folder by sending GET request.
+		//Deal with ServerResponse and output correct message.
+	}
+}
+public class P2PServer{
+ 
+private HashMap<Int, ServerRecord> DHTRecords;
+	private List<ContentRecord> contentFiles;
+	private String myIP;
+	public void Listen(){
+	
+		while(true)
+		{
+		//blocking setup of a datagram listener;
+		
+		//Upon determining the type and validity of the message sent to the server,
+		//Start a new thread that calls the appropriate private method.
+		}
+	}
+	
+	public void Send(Datagram data, String destinationIP){
+		//Send Datagram to the destination
+	}
+	
+	private void Init(String entryIP){
+		//Populate DHTRecords with response from DHT ring.
+	}
+	
+	private boolean Inform(ContentRecord record){
+		//Hash the record and send it to the appropriate DHT server
+	}
+	
+	private boolean Exit(){
+		//Send an exit signal to one of the DHT servers.
+	}
+}
+ 
+GUI heirachy:
+ 
+Open Executable:
+	DHT Executable:
+		Connect to an existing DHT ring?
+			Y:Please enter IP of a DHT server.
+			<---E: No server listening at given adresss
+			N:Initiating new DHT ring.
+		#DirectoryServer.listen is initiated#
+		Current Server IP is #DirectoryServer.id.ip# with id #DirectoryServer.id.id#
+		Press E to exit. 
+			#On every event, Event is logged#
+			E: Goodbye() #DirectoryServer.Exit() is called#
+	Peer Executable:
+		Enter IP of DHT Node:
+		<---E: No server listening at given adresss
+		Connected to DHT Ring, broadcast Files?
+			Y:Current sharing folder is #Share Path#
+			N:Running in recieve only mode.
+		Select options:
+			1: Request File. 
+			<---E: File transfer failed.
+			2: Refresh Shared Files.
+				#List all files added# 
+			E:Exit
