@@ -49,7 +49,6 @@ public class DirectoryServer
 	private boolean Inform(ContentRecord record){
 		//Hash the record to ensure that it belongs here;
 		//add to contentRecords
-		//
 	}
 	private ContentRecord Query(String name){
 		//returns record with given name.
@@ -61,38 +60,41 @@ public class DirectoryServer
 }
 public class P2PClient{
  
-	private HashMap<Int, ServerRecord> DHTRecords;
+	private HashMap<Integer, ServerRecord> DHTRecords;
 	private String myIP;
-	public void Listen(){
-	
-		while(true)
-		{
-		//blocking setup of a datagram listener;
-		
-		//Upon determining the type and validity of the message sent to the server,
-		//Start a new thread that calls the appropriate private method.
-		}
-	}
 	
 	public void Send(Datagram data, String destinationIP){
 		//Send Datagram to the destination
 	}
 	
 	private void Init(String entryIP){
-		//Populate DHTRecords with response from DHT ring.
+		//Populate DHTRecords with response from DHT ring, and saves result to DHTRecords
 	}
 	
-	private ContentRecord Query(String name){
-		//returns record with given name.	
+	private ContentRecord QueryDHT(String name){
+		//Hashes the name to get index of DHT server to be queried
+		//Retrieves DHT server from DHTRecords HashMap using hashed index
+		//Queries the DHT server for the IP of the P2P server that holds the file
+		//Upon receiving response:
+			//If response is successful:
+				//create a content record from response and return it
+			//Else (response was not successful)
+				//output error message "DHT server did not respond" or "DHT server did not contain record"
 	}
+	
 	private boolean RequestFile (ContentRecord record){
-		//Contacts server specified by record and saves it to the shared folder by sending GET request.
-		//Deal with ServerResponse and output correct message.
+		//Contacts P2PServer in the ContentRecord, requests the file and waits for response
+		//Upon receiving response:
+			//If response is successful:
+				//begins file transfer from the P2PServer
+				//after it is transferred, saves it to the shared folder by sending GET request.
+			//Else (response was not successful)
+				//output error message "P2P Server did not respond" or "P2P server did not contain record"
 	}
 }
 public class P2PServer{
  
-private HashMap<Int, ServerRecord> DHTRecords;
+private HashMap<Integer, ServerRecord> DHTRecords;
 	private List<ContentRecord> contentFiles;
 	private String myIP;
 	public void Listen(){
@@ -102,7 +104,7 @@ private HashMap<Int, ServerRecord> DHTRecords;
 		//blocking setup of a datagram listener;
 		
 		//Upon determining the type and validity of the message sent to the server,
-		//Start a new thread that calls the appropriate private method.
+		//Start a new thread with a new socket that calls the appropriate private method.
 		}
 	}
 	
@@ -111,7 +113,7 @@ private HashMap<Int, ServerRecord> DHTRecords;
 	}
 	
 	private void Init(String entryIP){
-		//Populate DHTRecords with response from DHT ring.
+		//Populate DHTRecords with response from DHT ring, and saves result to DHTRecords
 	}
 	
 	private boolean Inform(ContentRecord record){
@@ -119,32 +121,34 @@ private HashMap<Int, ServerRecord> DHTRecords;
 	}
 	
 	private boolean Exit(){
-		//Send an exit signal to one of the DHT servers.
+		//Send an exit signal to one of the P2P servers.
 	}
 }
  
-GUI heirachy:
+GUI hierarchy:
  
 Open Executable:
 	DHT Executable:
 		Connect to an existing DHT ring?
 			Y:Please enter IP of a DHT server.
-			<---E: No server listening at given adresss
+			<---E: No server listening at given addresses
 			N:Initiating new DHT ring.
 		#DirectoryServer.listen is initiated#
 		Current Server IP is #DirectoryServer.id.ip# with id #DirectoryServer.id.id#
-		Press E to exit. 
+		Press X to exit. 
 			#On every event, Event is logged#
-			E: Goodbye() #DirectoryServer.Exit() is called#
+			X: Goodbye() #DirectoryServer.Exit() is called#
 	Peer Executable:
 		Enter IP of DHT Node:
-		<---E: No server listening at given adresss
+		<---E: No server listening at given addresses
 		Connected to DHT Ring, broadcast Files?
 			Y:Current sharing folder is #Share Path#
-			N:Running in recieve only mode.
+			N:Running in receive only mode.
 		Select options:
 			1: Request File. 
 			<---E: File transfer failed.
 			2: Refresh Shared Files.
 				#List all files added# 
-			E:Exit
+			X:Exit
+
+Y: YES   N: NO   E: ERROR   X:EXIT
