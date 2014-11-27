@@ -1,3 +1,8 @@
+//CPS 706 Computer Networks Assignment:
+//Group Members:
+//Dante Camarena, 500534815, dcamaren@ryerson.ca
+//Zack Harris, 500535762, zharris@ryerson.ca
+
 public class Utils
 {
 	public int Hash(String contentName){}
