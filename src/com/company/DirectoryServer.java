@@ -30,10 +30,10 @@ public class DirectoryServer
         int nextID = (serverID % 4) + 1;
         nextServerRecord = new ServerRecord(nextID, ipAddress, 4440 + nextID);
         //hack
-        for(int i = 1; i <= 4; i++)
-        {
-            serverRecords.put(i, new ServerRecord(i, ipAddress, 4440 + i));
-        }
+        //for(int i = 1; i <= 4; i++)
+        //{
+        //    serverRecords.put(i, new ServerRecord(i, ipAddress, 4440 + i));
+        //}
 
         Thread updThread = new Thread(new Runnable()
         {
@@ -55,25 +55,30 @@ public class DirectoryServer
                             String response = "";
                             if (received.equals("init"))
                             {
-                                response = handleInit();
+                                response = handleInit(packet.getAddress().toString(), packet.getPort());
                             }
                             else if (received.startsWith("update"))
                             {
                                 response = handleUpdate(received, packet.getAddress().toString());
+                            }
+                            else if (received.startsWith("query"))
+                            {
+                                response = handleQuery(received);
                             }
                             else
                             {
                                 response = "I just received {" + received + "}";
                             }
 
-
-                            buf = response.getBytes();
-
-                            // send the response to the client at "address" and "port"
-                            InetAddress address = packet.getAddress();
-                            int port = packet.getPort();
-                            packet = new DatagramPacket(buf, buf.length, address, port);
-                            socket.send(packet);
+                            if (!response.equals("no_response"))
+                            {
+                                buf = response.getBytes();
+                                // send the response to the client at "address" and "port"
+                                InetAddress address = packet.getAddress();
+                                int port = packet.getPort();
+                                packet = new DatagramPacket(buf, buf.length, address, port);
+                                socket.send(packet);
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -84,35 +89,28 @@ public class DirectoryServer
                     e.printStackTrace();
                 }
             }
-            String handleInit()
+
+            String handleInit(String senderIP, int senderPort)
             {
                 if (serverRecords.size() < 4)
                 {
                     //use tcp to get all records
-                    //try (
-                    //        Socket socket = new Socket(DirectoryServer.nextServerRecord.IPAddress, DirectoryServer.nextServerRecord.portNumber);
-                    //        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                    //        BufferedReader in = new BufferedReader(
-                    //                new InputStreamReader(socket.getInputStream()));
-                    //) {
-                    //    BufferedReader stdIn =
-                    //            new BufferedReader(new InputStreamReader(System.in));
-                    //    //String fromServer;
-                    //    //String fromUser;
-//
-                    //    in.readLine();
-                    //    String message = "init\n" + DirectoryServer.thisServerRecord.toString();
-                    //    out.println(message);
-                    //
-                    //} catch (UnknownHostException e) {
-                    //    System.err.println("Don't know about host " + DirectoryServer.nextServerRecord.IPAddress);
-                    //    //System.exit(1);
-                    //} catch (IOException e) {
-                    //    System.err.println("Couldn't get I/O for the connection to " +
-                    //            DirectoryServer.nextServerRecord.IPAddress);
-                    //    //System.exit(1);
-                    //}
-                    return "nope";
+                    try (
+                            Socket socket = new Socket(DirectoryServer.nextServerRecord.IPAddress, DirectoryServer.nextServerRecord.portNumber);
+                            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                            BufferedReader in = new BufferedReader( new InputStreamReader(socket.getInputStream()));
+                    ) {
+                        in.readLine();
+                        String message = "init\n" + senderIP + " " + senderPort + "\n" + DirectoryServer.thisServerRecord.toString();
+                        out.println(message);
+
+                    } catch (UnknownHostException e) {
+                        System.err.println("Don't know about host " + DirectoryServer.nextServerRecord.IPAddress);
+                    } catch (IOException e) {
+                        System.err.println("Couldn't get I/O for the connection to " +
+                                DirectoryServer.nextServerRecord.IPAddress);
+                    }
+                    return "no_response";
                 }
                 else
                 {
@@ -140,7 +138,23 @@ public class DirectoryServer
                 contentRecords.get(contentName).add(new ContentRecord(contentName, ownerIP));
                 return "success: the content record was stored on the dht server";
             }
-
+            String handleQuery(String received)
+            {
+                Scanner sc = new Scanner(received);
+                sc.next();
+                String contentName = sc.next();
+                String response = "";
+                if (!contentRecords.containsKey(contentName))
+                {
+                    response = "404 content not found";
+                }
+                else
+                {
+                    ContentRecord rec = contentRecords.get(contentName).get(0); //gets the first client in the list of providers
+                    response = rec.toString();
+                }
+                return response;
+            }
         });
         updThread.start();
 
@@ -171,20 +185,100 @@ public class DirectoryServer
 
 
                             String inputLine, outputLine;
-                            outputLine = "I'm a server: " + counter++;
+                            outputLine = "request received from server " + serverID;
                             out.println(outputLine);
-
-                            while ((inputLine = in.readLine()) != null)
+                            inputLine = in.readLine();
+                            if (inputLine.equals("init"))
                             {
-                                outputLine = "I'm a server: " + counter++;
-                                out.println(outputLine);
-                                if (outputLine.equals("I'm a server: 5"))
-                                    break;
+                                String fullmessage = in.readLine() + "\n";
+                                while ((inputLine = in.readLine()) != null)
+                                {
+                                    if (!inputLine.isEmpty())
+                                        fullmessage += inputLine + "\n";
+                                    //System.out.println(inputLine);
+                                    //out.println(outputLine);
+                                }
+                                //fullmessage = fullmessage.trim();
+                                System.out.print("fullmessage:\n" + fullmessage);
+                                SendInitMessage(fullmessage);
+
+                            }//
+                            else
+                            {
+                                do
+                                {
+                                    System.out.println(inputLine);
+                                    outputLine = "I'm a server: " + counter++;
+                                    out.println(outputLine);
+                                    //if (outputLine.equals("I'm a server: 5"))
+                                    //    break;
+                                } while ((inputLine = in.readLine()) != null);
                             }
                         }
                         catch(IOException e)
                         {
                             e.printStackTrace();
+                        }
+                    }
+                    void SendInitMessage(String fullmessage) throws IOException
+                    {
+                        Scanner sc = new Scanner(fullmessage);
+                        String p2pclient = sc.nextLine();
+                        String firstserver = sc.nextLine();
+
+                        String newMessage = fullmessage += DirectoryServer.thisServerRecord.toString();
+                        if (new Scanner(firstserver).nextInt() == serverID)
+                        {
+                            //send back upd
+                            System.out.println("SEND BACK USING UDP TO " + p2pclient);
+                            String returnMessage = firstserver + "\n";
+                            StoreServerRecord(firstserver);
+                            while(sc.hasNextLine())
+                            {
+                                String line = sc.nextLine();
+                                if (!line.isEmpty())
+                                {
+                                    StoreServerRecord(line);
+                                    returnMessage += line + "\n";
+                                }
+                            }
+                            Scanner sc2 = new Scanner(p2pclient);
+                            String clientIP = sc2.next();
+                            int clientPort = Integer.parseInt(sc2.next());
+
+                            DatagramSocket socket = new DatagramSocket();
+                            byte[] buf = returnMessage.getBytes();
+                            InetAddress address = InetAddress.getByName(clientIP.substring(1,clientIP.length()));
+                            DatagramPacket packet = new DatagramPacket(buf, buf.length, address, clientPort);
+                            socket.send(packet);
+
+                        }
+                        else
+                        {
+                            //keep going tcp
+                            try (
+                                    Socket socket = new Socket(DirectoryServer.nextServerRecord.IPAddress, DirectoryServer.nextServerRecord.portNumber);
+                                    PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                                    BufferedReader in = new BufferedReader( new InputStreamReader(socket.getInputStream()));
+                            ) {
+                                in.readLine();
+                                out.println("init\n"+newMessage);
+                            } catch (UnknownHostException e) {
+                                System.err.println("Don't know about host " + DirectoryServer.nextServerRecord.IPAddress);
+                            } catch (IOException e) {
+                                System.err.println("Couldn't get I/O for the connection to " +
+                                        DirectoryServer.nextServerRecord.IPAddress);
+                            }
+                        }
+
+
+                    }
+                    void StoreServerRecord(String formatString)
+                    {
+                        ServerRecord rec = ServerRecord.parseRecord(formatString);
+                        if (!serverRecords.containsKey(rec.serverID))
+                        {
+                            serverRecords.put(rec.serverID, rec);
                         }
                     }
                 }
