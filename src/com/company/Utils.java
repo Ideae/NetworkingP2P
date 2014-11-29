@@ -19,8 +19,8 @@ public class Utils
 
     static boolean YesOrNo(Scanner sc) {
         while (true) {
-            String response = sc.next();
-            if (response.equalsIgnoreCase("Y") || response.equalsIgnoreCase("Yes"))
+            String response = sc.nextLine();
+            if (response.isEmpty() || response.equalsIgnoreCase("Y") || response.equalsIgnoreCase("Yes"))
                 return true;
             else if (response.equalsIgnoreCase("N") || response.equalsIgnoreCase("No"))
                 return false;

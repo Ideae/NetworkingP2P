@@ -9,12 +9,14 @@ import java.util.Scanner;
 public class HTTPTester {
     public static void main(String args[]) throws IOException {
         Scanner sc = new Scanner(System.in);
-        //new Thread(new Runnable() {
-        //    @Override
-        //    public void run() {
-        //        P2PServer.Listen(4444);
-        //    }
-        //}).start();
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                P2PClient.Listen(6666);
+            }
+        }).start();
 //
         //P2PClient.RequestFile(new ContentRecord("sup","127.0.0.1",4444));
 
