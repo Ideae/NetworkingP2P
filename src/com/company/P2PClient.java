@@ -13,9 +13,14 @@ public class P2PClient
     static TreeMap<Integer, ServerRecord> serverRecords = new TreeMap<>();
     static TreeMap<String, Integer> contentToDHTServer = new TreeMap<>();
     static File sharesDirectory = new File("shares/");
+    static int portNumber = -1;
 
     public static void main(String[] args) throws IOException
     {
+        if (args.length == 1)
+        {
+            portNumber = Integer.parseInt(args[0]);
+        }
         serverRecords.put(1, new ServerRecord(1, "127.0.0.1", 4441));
         Init();
 
@@ -35,7 +40,17 @@ public class P2PClient
                 String filename = scLine.next();
                 Query(filename);
             }
+            else if (command.equals("exit"))
+            {
+                Exit();
+                System.exit(1);
+                return;
+            }
         }
+    }
+    static void Exit() throws IOException
+    {
+        CreateRequest("exit", 1);
     }
     static void Query(String contentName) throws IOException
     {
@@ -70,7 +85,12 @@ public class P2PClient
     static String CreateRequest(String request, int serverNum) throws IOException
     {
         ServerRecord record = serverRecords.get(serverNum);
-        DatagramSocket socket = new DatagramSocket();
+        DatagramSocket socket;
+        if (portNumber > 0)
+            socket = new DatagramSocket(portNumber);
+        else
+            socket = new DatagramSocket();
+
         byte[] buf = request.getBytes();
         InetAddress address = InetAddress.getByName(record.IPAddress);
         DatagramPacket packet = new DatagramPacket(buf, buf.length, address, record.portNumber);
