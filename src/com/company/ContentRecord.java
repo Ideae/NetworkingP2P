@@ -16,15 +16,16 @@ public class ContentRecord
         this.ContentOwnerIP = ContentOwnerIP;
         this.ContentOwnerPort = ContentOwnerPort;
     }
-    public String toString()
-    {
-        return String.format("%s %s\n", ContentName, ContentOwnerIP+":"+ContentOwnerPort);
-    }
-    public static ContentRecord parseRecord(String formattedString, boolean decoy)
-    {
+
+    public static ContentRecord parseRecord(String formattedString) {
         Scanner sc = new Scanner(formattedString);
         String name = sc.next();
         String[] ipAndPort = sc.next().split(":");
         return new ContentRecord(name, ipAndPort[0], Integer.parseInt(ipAndPort[1]));
+    }
+
+    public String toString()
+    {
+        return String.format("%s %s\n", ContentName, ContentOwnerIP+":"+ContentOwnerPort);
     }
 }
