@@ -17,6 +17,7 @@ public class DirectoryServer
     static int serverID;
     static String ipAddress = "127.0.0.1";
     protected static DatagramSocket socket = null;
+    static boolean debug = false;
 
     public static void main(String[] args) throws IOException {
 
@@ -55,19 +56,23 @@ public class DirectoryServer
                             String response = "";
                             if (received.equals("init"))
                             {
-                                response = handleInit(packet.getAddress().toString(), packet.getPort());
+                                response = handleInit(packet.getAddress().getHostAddress(), packet.getPort());
                             }
                             else if (received.startsWith("update"))
                             {
-                                response = handleUpdate(received, packet.getAddress().toString(), packet.getPort());
+                                response = handleUpdate(received, packet.getAddress().getHostAddress(), packet.getPort());
                             }
                             else if (received.startsWith("query"))
                             {
                                 response = handleQuery(received);
                             }
+                            else if (received.startsWith("exit"))
+                            {
+                                response = handleExit(packet.getAddress().getHostAddress(), packet.getPort());
+                            }
                             else
                             {
-                                response = "I just received {" + received + "}";
+                                response = "invalid request: {" + received + "}";
                             }
 
                             if (!response.equals("no_response"))
@@ -89,7 +94,26 @@ public class DirectoryServer
                     e.printStackTrace();
                 }
             }
+            String handleExit(String senderIP, int senderPort)
+            {
+                //System.out.println(senderIP);
+                try (
+                        Socket socket = new Socket(DirectoryServer.nextServerRecord.IPAddress, DirectoryServer.nextServerRecord.portNumber);
+                        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                        BufferedReader in = new BufferedReader( new InputStreamReader(socket.getInputStream()));
+                ) {
+                    in.readLine();
+                    String message = "exit\n" + senderIP + " " + senderPort + " " + serverID;
+                    out.println(message);
 
+                } catch (UnknownHostException e) {
+                    System.err.println("Don't know about host " + DirectoryServer.nextServerRecord.IPAddress);
+                } catch (IOException e) {
+                    System.err.println("Couldn't get I/O for the connection to " +
+                            DirectoryServer.nextServerRecord.IPAddress);
+                }
+                return "no_response";
+            }
             String handleInit(String senderIP, int senderPort)
             {
                 if (serverRecords.size() < 4)
@@ -177,7 +201,6 @@ public class DirectoryServer
                     {
                         try
                         {
-                            //System.out.println("in thread");
                             PrintWriter out =
                                     new PrintWriter(socket.getOutputStream(), true);
                             BufferedReader in = new BufferedReader(
@@ -195,29 +218,75 @@ public class DirectoryServer
                                 {
                                     if (!inputLine.isEmpty())
                                         fullmessage += inputLine + "\n";
-                                    //System.out.println(inputLine);
-                                    //out.println(outputLine);
                                 }
-                                //fullmessage = fullmessage.trim();
-                                System.out.print("fullmessage:\n" + fullmessage);
+                                if (debug) System.out.print("fullmessage:\n" + fullmessage);
                                 SendInitMessage(fullmessage);
-
-                            }//
+                            }
+                            else if (inputLine.equals("exit"))
+                            {
+                                SendExitMessage(in.readLine());
+                            }
                             else
                             {
                                 do
                                 {
-                                    System.out.println(inputLine);
+                                    if (debug) System.out.println(inputLine);
                                     outputLine = "I'm a server: " + counter++;
                                     out.println(outputLine);
-                                    //if (outputLine.equals("I'm a server: 5"))
-                                    //    break;
                                 } while ((inputLine = in.readLine()) != null);
                             }
                         }
                         catch(IOException e)
                         {
                             e.printStackTrace();
+                        }
+                    }
+                    void SendExitMessage(String clientInfo)
+                    {
+                        Scanner sc = new Scanner(clientInfo);
+                        String clientIP = sc.next();
+                        int clientPort = Integer.parseInt(sc.next());
+                        int serverNumber = Integer.parseInt(sc.next());
+                        RemoveContentRecords(clientIP, clientPort);
+
+                        if (serverNumber != serverID)
+                        {
+                            //continue traversing dht ring
+                            try (
+                                    Socket socket = new Socket(DirectoryServer.nextServerRecord.IPAddress, DirectoryServer.nextServerRecord.portNumber);
+                                    PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                                    BufferedReader in = new BufferedReader( new InputStreamReader(socket.getInputStream()));
+                            ) {
+                                in.readLine();
+                                out.println("exit\n"+clientInfo);
+                            } catch (UnknownHostException e) {
+                                System.err.println("Don't know about host " + DirectoryServer.nextServerRecord.IPAddress);
+                            } catch (IOException e) {
+                                System.err.println("Couldn't get I/O for the connection to " +
+                                        DirectoryServer.nextServerRecord.IPAddress);
+                            }
+                        }
+
+
+                    }
+                    void RemoveContentRecords(String clientIP, int clientPort)
+                    {
+                        for(String contentName : contentRecords.keySet())
+                        {
+                            ArrayList<ContentRecord> removeList = new ArrayList<>();
+                            for(ContentRecord rec : contentRecords.get(contentName))
+                            {
+                                if (rec.ContentOwnerIP.equals(clientIP) && rec.ContentOwnerPort == clientPort)
+                                {
+                                    removeList.add(rec);
+                                }
+                            }
+                            for(ContentRecord rec : removeList)
+                            {
+                                contentRecords.get(contentName).remove(rec);
+                                System.out.println("Removed content record: " + rec.toString());
+                            }
+                            if (contentRecords.get(contentName).size() == 0) contentRecords.remove(contentName);
                         }
                     }
                     void SendInitMessage(String fullmessage) throws IOException
@@ -230,7 +299,7 @@ public class DirectoryServer
                         if (new Scanner(firstserver).nextInt() == serverID)
                         {
                             //send back upd
-                            System.out.println("SEND BACK USING UDP TO " + p2pclient);
+                            if (debug) System.out.println("SEND BACK USING UDP TO " + p2pclient);
                             String returnMessage = firstserver + "\n";
                             StoreServerRecord(firstserver);
                             while(sc.hasNextLine())
@@ -248,10 +317,9 @@ public class DirectoryServer
 
                             DatagramSocket socket = new DatagramSocket();
                             byte[] buf = returnMessage.getBytes();
-                            InetAddress address = InetAddress.getByName(clientIP.substring(1,clientIP.length()));
+                            InetAddress address = InetAddress.getByName(clientIP);
                             DatagramPacket packet = new DatagramPacket(buf, buf.length, address, clientPort);
                             socket.send(packet);
-
                         }
                         else
                         {
