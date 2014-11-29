@@ -16,7 +16,6 @@ public class P2PClient
     public static void main(String[] args) throws IOException
     {
         serverRecords.put(1, new ServerRecord(1, "127.0.0.1", 4441));
-        //MakeRequest("init", "init", 1);
         Init();
 
         Scanner sc = new Scanner(System.in);
@@ -28,13 +27,23 @@ public class P2PClient
             if (command.equals("update"))
             {
                 String filename = scLine.next();
-                //int serverNum = Utils.Hash(filename);
-                //MakeRequest(command, command + " " + filename, serverNum);
                 Update(filename);
+            }
+            else if (command.equals("query"))
+            {
+                String filename = scLine.next();
+                Query(filename);
             }
 
         }
     }
+    static void Query(String contentName) throws IOException
+    {
+        //String request = "query " + contentName;
+        //int serverNum = Utils.Hash(contentName);
+        //String response = CreateRequest(request, serverNum);
+        //System.out.printf("Stored %s in server %d \n", contentName, serverNum);
+    }//
     static void Update(String contentName) throws IOException
     {
         String request = "update " + contentName;
