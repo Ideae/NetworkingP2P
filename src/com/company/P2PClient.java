@@ -35,16 +35,16 @@ public class P2PClient
                 String filename = scLine.next();
                 Query(filename);
             }
-
         }
     }
     static void Query(String contentName) throws IOException
     {
-        //String request = "query " + contentName;
-        //int serverNum = Utils.Hash(contentName);
-        //String response = CreateRequest(request, serverNum);
-        //System.out.printf("Stored %s in server %d \n", contentName, serverNum);
-    }//
+        String request = "query " + contentName;
+        int serverNum = Utils.Hash(contentName);
+        String response = CreateRequest(request, serverNum);
+        ContentRecord peerProvider = ContentRecord.parseRecord(response);
+        System.out.printf("The file %s can be found at the peer IP: %s\n", contentName, peerProvider.ContentOwnerIP);
+    }
     static void Update(String contentName) throws IOException
     {
         String request = "update " + contentName;
