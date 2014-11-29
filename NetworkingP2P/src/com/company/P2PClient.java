@@ -11,6 +11,7 @@ public class P2PClient
 {
     //static int FirstDirectoryServerPort = 4441;
     static TreeMap<Integer, ServerRecord> serverRecords = new TreeMap<>();
+    static TreeMap<String, Integer> contentToDHTServer = new TreeMap<>();
 
     public static void main(String[] args) throws IOException
     {
@@ -74,7 +75,10 @@ public class P2PClient
         }
         else if (command.equals("update"))
         {
-            //
+            Scanner sc = new Scanner(request); sc.next();
+            String contentName = sc.next();
+            contentToDHTServer.put(contentName, Utils.Hash(contentName));
+            System.out.printf("Stored %s in records\n", contentName);
         }
         socket.close();
     }

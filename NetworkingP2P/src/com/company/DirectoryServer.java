@@ -10,7 +10,7 @@ import java.util.*;
 public class DirectoryServer
 {
     static TreeMap<Integer, ServerRecord> serverRecords = new TreeMap<>();
-    static TreeMap<String, ContentRecord> contentRecords = new TreeMap<>();
+    static TreeMap<String, ArrayList<ContentRecord>> contentRecords = new TreeMap<>();
     static ServerRecord thisServerRecord, nextServerRecord;
     static int counter = 0;
     static int portNumber;
@@ -57,9 +57,9 @@ public class DirectoryServer
                             {
                                 response = handleInit();
                             }
-                            else if (received.substring(0, "update".length()).equals("update"))
+                            else if (received.startsWith("update"))
                             {
-
+                                response = handleUpdate(received, packet.getAddress().toString());
                             }
                             else
                             {
@@ -124,6 +124,21 @@ public class DirectoryServer
                     }
                     return message;
                 }
+            }
+            String handleUpdate(String received, String ownerIP)
+            {
+                Scanner sc = new Scanner(received);
+                sc.next();
+                String contentName = sc.next();
+                //more complex implementation possibly needed (only store peers 'in charge' of a
+                //contentName who store all peers that provide that file, and query those peers for
+                //the entire list of providers)
+                if (!contentRecords.containsKey(contentName))
+                {
+                    contentRecords.put(contentName, new ArrayList<ContentRecord>());
+                }
+                contentRecords.get(contentName).add(new ContentRecord(contentName, ownerIP));
+                return "success: the content record was stored on the dht server";
             }
 
         });
