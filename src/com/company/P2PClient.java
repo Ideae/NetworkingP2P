@@ -1,27 +1,85 @@
 package com.company;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Scanner;
+import java.util.TreeMap;
 
 /**
  * Created by zacktibia on 2014-11-26.
  */
 public class P2PClient
 {
+    public static final String HTTP_1_1 = "HTTP/1.1";
     //static int FirstDirectoryServerPort = 4441;
     static TreeMap<Integer, ServerRecord> serverRecords = new TreeMap<>();
     static TreeMap<String, Integer> contentToDHTServer = new TreeMap<>();
-    static File sharesDirectory = new File("shares/");
+    static File sharesDirectory;
 
     public static void main(String[] args) throws IOException
     {
-        serverRecords.put(1, new ServerRecord(1, "127.0.0.1", 4441));
-        Init();
-
         Scanner sc = new Scanner(System.in);
-        while(true)
-        {
+        while (true) {
+            System.out.println("Enter IP of DHT Node:");
+            String IP = sc.nextLine();
+            if (IP.isEmpty()) IP = "127.0.0.1";
+            System.out.println("Enter Port of DHT Node:");
+            String p = sc.nextLine();
+            if (p.isEmpty()) p = "4441";
+            int port = Integer.parseInt(p);
+            serverRecords.put(1, new ServerRecord(1, IP, port));
+            if (Init()) break;
+        }
+        while (true) {
+            System.out.println("Please input your sharing folder name");
+            sharesDirectory = new File(sc.nextLine() + "/");
+            if (!sharesDirectory.exists()) {
+                System.out.println("Directory does not exist, create?(y/n)");
+                if (Utils.YesOrNo(sc)) {
+                    if (!sharesDirectory.mkdirs()) {
+                        System.out.println("Error making directory, Program will now exit");
+                        return;
+                    }
+                } else {
+                    System.out.println("Try Again.");
+                    continue;
+                }
+            }
+            break;
+        }
+        System.out.println("Connected to DHT Ring, broadcast Files? (y/n)");
+
+        if (Utils.YesOrNo(sc)) {
+            System.out.println("Current sharing folder is " + sharesDirectory.getAbsolutePath());
+            System.out.println("Enter Listen Port");
+            String p = sc.nextLine();
+            if (p.isEmpty()) p = "4444";
+            final int port = Integer.parseInt(p);
+            PopulateFiles();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Listen(port);
+                }
+            }).start();
+        } else {
+            System.out.println("Running in receive only mode.");
+        }
+
+        while (true) {
             String line = sc.nextLine();
             Scanner scLine = new Scanner(line);
             String command = scLine.next();
@@ -42,8 +100,14 @@ public class P2PClient
         String request = "query " + contentName;
         int serverNum = Utils.Hash(contentName);
         String response = CreateRequest(request, serverNum);
+        if (response.startsWith("404")) {
+            System.out.println(response);
+            return;
+        }
         ContentRecord peerProvider = ContentRecord.parseRecord(response);
         System.out.printf("The file %s can be found at the peer IP: %s\n", contentName, peerProvider.ContentOwnerIP);
+        RequestFile(peerProvider);
+
     }
     static void Update(String contentName) throws IOException
     {
@@ -53,9 +117,11 @@ public class P2PClient
         contentToDHTServer.put(contentName, serverNum);
         System.out.printf("Stored %s in server %d \n", contentName, serverNum);
     }
-    static void Init() throws IOException
+
+    static boolean Init() throws IOException
     {
         String response = CreateRequest("init", 1);
+        //TODO:Handle incorrect response and return false.
         System.out.println("Response: " + response);
         Scanner sc = new Scanner(response);
         while (sc.hasNext())
@@ -66,6 +132,7 @@ public class P2PClient
             if (!serverRecords.containsKey(num))
                 serverRecords.put(num, new ServerRecord(num, serverIP, serverPort));
         }
+        return true;
     }
     static String CreateRequest(String request, int serverNum) throws IOException
     {
@@ -91,16 +158,41 @@ public class P2PClient
 
         String hostName = record.ContentOwnerIP;
         int portNumber = record.ContentOwnerPort;
-        System.out.println("Req");
         try (
                 Socket socket = new Socket(hostName, portNumber);
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader( new InputStreamReader(socket.getInputStream()))
         ) {
-            out.println("hello");
-            System.out.println("Said hello");
-            System.out.println("response was : "+ in.readLine());
+            out.println("GET " + record.ContentName + " " + HTTP_1_1);
+            out.println();
 
+            List<String> headers = getHttpHeaders(in);
+            String response = headers.get(0);
+            String[] SplitResponse = response.split(" ");
+            if (!SplitResponse[1].equals("200")) {
+                System.out.println("Error " + SplitResponse[1] + ": " + SplitResponse[2]);
+                return;
+            }
+            int length = -1;
+            for (String header : headers) {
+                if (header.startsWith("Content-Length")) {
+                    length = Integer.parseInt(header.split(" ")[1]);
+                }
+            }
+            if (length <= 0) {
+                System.out.println("File Length Error");
+                return;
+            }
+            File f = new File(record.ContentName);
+            FileOutputStream fos = new FileOutputStream(f);
+            for (int i = 0; i < length; i++) {
+                fos.write(in.read());
+            }
+
+            out.close();
+            in.close();
+            fos.close();
+            socket.close();
             //Contacts P2PServer in the ContentRecord, requests the file and waits for response
             //Upon receiving response:
             //If response is successful:
@@ -134,17 +226,16 @@ public class P2PClient
                     try {
                         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
                         BufferedReader in = new BufferedReader( new InputStreamReader(clientSocket.getInputStream()));
-                        ArrayList<String> headers = new ArrayList<>();
-                        while(!in.readLine().equals("")){
-                            headers.add(in.readLine());
-                        }
+
+                        ArrayList<String> headers = getHttpHeaders(in);
+
                         String GetRequest = headers.get(0);
                         String[] SplitRequest = GetRequest.split(" ");
                         if(SplitRequest.length != 3 || !SplitRequest[0].equals("GET")){
                             out.print(ConstructResponse(400, "Bad Request"));
                             return;
                         }
-                        if(!SplitRequest[2].equals("HTTP/1.1")){
+                        if (!SplitRequest[2].equals(HTTP_1_1)) {
                             out.print(ConstructResponse(505, "HTTP Version Not Supported"));
                             return;
                         }
@@ -182,6 +273,14 @@ public class P2PClient
                     + portNumber + " or listening for a connection");
             System.out.println(e.getMessage());
         }
+    }
+
+    private static ArrayList<String> getHttpHeaders(BufferedReader in) throws IOException {
+        ArrayList<String> headers = new ArrayList<>();
+        while (!in.readLine().equals("")) {
+            headers.add(in.readLine());
+        }
+        return headers;
     }
 
     static String ConstructResponse(int code, String phrase){
