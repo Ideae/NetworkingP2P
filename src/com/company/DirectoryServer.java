@@ -59,7 +59,7 @@ public class DirectoryServer
                             }
                             else if (received.startsWith("update"))
                             {
-                                response = handleUpdate(received, packet.getAddress().toString());
+                                response = handleUpdate(received, packet.getAddress().toString(), packet.getPort());
                             }
                             else
                             {
@@ -125,7 +125,7 @@ public class DirectoryServer
                     return message;
                 }
             }
-            String handleUpdate(String received, String ownerIP)
+            String handleUpdate(String received, String ownerIP, int ownerPort)
             {
                 Scanner sc = new Scanner(received);
                 sc.next();
@@ -137,7 +137,7 @@ public class DirectoryServer
                 {
                     contentRecords.put(contentName, new ArrayList<ContentRecord>());
                 }
-                contentRecords.get(contentName).add(new ContentRecord(contentName, ownerIP));
+                contentRecords.get(contentName).add(new ContentRecord(contentName, ownerIP, ownerPort));
                 return "success: the content record was stored on the dht server";
             }
 

@@ -9,20 +9,22 @@ public class ContentRecord
 {
     public String ContentName;
     public String ContentOwnerIP;
-    public ContentRecord(String ContentName, String ContentOwnerIP)
+    public int ContentOwnerPort;
+    public ContentRecord(String ContentName, String ContentOwnerIP, int ContentOwnerPort)
     {
         this.ContentName = ContentName;
         this.ContentOwnerIP = ContentOwnerIP;
+        this.ContentOwnerPort = ContentOwnerPort;
     }
     public String toString()
     {
-        return String.format("%s %s\n", ContentName, ContentOwnerIP);
+        return String.format("%s %s\n", ContentName, ContentOwnerIP+":"+ContentOwnerPort);
     }
-    public static ContentRecord parseRecord(String formattedString)
+    public static ContentRecord parseRecord(String formattedString, boolean decoy)
     {
         Scanner sc = new Scanner(formattedString);
         String name = sc.next();
-        String ip = sc.next();
-        return new ContentRecord(name, ip);
+        String[] ipAndPort = sc.next().split(":");
+        return new ContentRecord(name, ipAndPort[0], Integer.parseInt(ipAndPort[1]));
     }
 }

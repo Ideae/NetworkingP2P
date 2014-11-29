@@ -12,6 +12,7 @@ public class P2PClient
     //static int FirstDirectoryServerPort = 4441;
     static TreeMap<Integer, ServerRecord> serverRecords = new TreeMap<>();
     static TreeMap<String, Integer> contentToDHTServer = new TreeMap<>();
+    static File sharesDirectory = new File("shares/");
 
     public static void main(String[] args) throws IOException
     {
@@ -85,4 +86,111 @@ public class P2PClient
         socket.close();
         return received;
     }
+
+    public static void RequestFile (ContentRecord record){
+
+        String hostName = record.ContentOwnerIP;
+        int portNumber = record.ContentOwnerPort;
+        System.out.println("Req");
+        try (
+                Socket socket = new Socket(hostName, portNumber);
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                BufferedReader in = new BufferedReader( new InputStreamReader(socket.getInputStream()))
+        ) {
+            out.println("hello");
+            System.out.println("Said hello");
+            System.out.println("response was : "+ in.readLine());
+
+            //Contacts P2PServer in the ContentRecord, requests the file and waits for response
+            //Upon receiving response:
+            //If response is successful:
+            //begins file transfer from the P2PServer
+            //after it is transferred, saves it to the shared folder by sending GET request.
+        } catch (IOException e) {
+            System.out.println("P2P Server did not respond or P2P server did not contain record");
+            e.printStackTrace();
+        }
+    }
+
+    //P2PServer Implementation.
+
+    public static void PopulateFiles() throws IOException {
+
+        File[] shares = sharesDirectory.listFiles();
+        assert shares != null;
+        for (File s : shares){
+            Update(s.getName());
+    }
+    }
+    public static void Listen(int portNumber){
+
+        try (
+                ServerSocket serverSocket = new ServerSocket(portNumber);
+        ) {
+            final Socket clientSocket = serverSocket.accept();
+            Runnable r = new Runnable(){
+                public void run()
+                {
+                    try {
+                        PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                        BufferedReader in = new BufferedReader( new InputStreamReader(clientSocket.getInputStream()));
+                        ArrayList<String> headers = new ArrayList<>();
+                        while(!in.readLine().equals("")){
+                            headers.add(in.readLine());
+                        }
+                        String GetRequest = headers.get(0);
+                        String[] SplitRequest = GetRequest.split(" ");
+                        if(SplitRequest.length != 3 || !SplitRequest[0].equals("GET")){
+                            out.print(ConstructResponse(400, "Bad Request"));
+                            return;
+                        }
+                        if(!SplitRequest[2].equals("HTTP/1.1")){
+                            out.print(ConstructResponse(505, "HTTP Version Not Supported"));
+                            return;
+                        }
+                        File requestedFile = new File(sharesDirectory, SplitRequest[1]);
+                        if(!requestedFile.exists()){
+                            out.print(ConstructResponse(404, "Not Found"));
+                            return;
+                        }
+
+                        String response =
+                                "HTTP/1.1 " + 200 + " OK \n" +
+                                        "Connection: close\n"+
+                                        "Date: " + new Date().toString() + "\n" +
+                                        "Last-Modified: " + new Date(requestedFile.lastModified()).toString() +
+                                        "Content-Length:" + requestedFile.length() +
+                                        "\n";
+
+                        FileInputStream fin = new FileInputStream(requestedFile);
+                        for (int i = 0; i < requestedFile.length(); i++) {
+                            out.write(fin.read());
+                        }
+                        out.flush();
+
+                        fin.close();
+                        in.close();
+                        out.close();
+                        clientSocket.close();
+                    }
+                    catch(IOException e){e.printStackTrace();}
+                }
+            };
+            new Thread(r).start();
+        } catch (IOException e) {
+            System.out.println("Exception caught when trying to listen on port "
+                    + portNumber + " or listening for a connection");
+            System.out.println(e.getMessage());
+        }
+    }
+
+    static String ConstructResponse(int code, String phrase){
+        String response =
+                "HTTP/1.1 " + code + " " + phrase + "\n" +
+                "Connection: close\n"+
+                "Date: " + new Date().toString() + "\n" +
+                "\n";
+        return response;
+    }
+
 }
