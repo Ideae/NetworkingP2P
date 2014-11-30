@@ -119,7 +119,7 @@ class UpdateThread extends Thread {
                     socket.receive(packet);
 
                     String received = new String(packet.getData(), 0, packet.getLength());
-                    System.out.println(received);
+                    System.out.println("Got message: ("+ received +")\n");
                     String response;
                     if (received.equals("init")) {
                         response = handleInit(packet.getAddress().getHostAddress());
