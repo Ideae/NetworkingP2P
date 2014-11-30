@@ -61,16 +61,9 @@ class P2PApp {
 
         if (Utils.YesOrNo(sc)) {
             System.out.println("Current sharing folder is " + sharesDirectory.getAbsolutePath());
-            System.out.println("Use default Listen Port (" + Utils.ClientToServerPort + ") ?(y/n)");
 
-            if (Utils.YesOrNo(sc)) {
-                serverPort = Utils.ClientToServerPort;
-            } else {
-                System.out.println("Enter Listen Port");
-                serverPort = Integer.parseInt(sc.nextLine());
-            }
             PopulateFiles();
-            p2pServer = new P2PServer(serverPort);
+            p2pServer = new P2PServer();
             p2pServer.start();
         } else {
             System.out.println("Running in receive only mode.");
@@ -82,7 +75,7 @@ class P2PApp {
             String command = scLine.next();
             if (command.equals("update")) {
                 String filename = scLine.next();
-                p2pClient.Update(filename, serverPort);
+                p2pClient.Update(filename);
             } else if (command.equals("query")) {
                 String filename = scLine.next();
                 p2pClient.Query(filename);
@@ -100,7 +93,7 @@ class P2PApp {
         File[] shares = sharesDirectory.listFiles();
         assert shares != null;
         for (File s : shares) {
-            p2pClient.Update(s.getName(), serverPort);
+            p2pClient.Update(s.getName());
         }
     }
 }

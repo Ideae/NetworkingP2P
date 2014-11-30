@@ -9,10 +9,10 @@ import java.util.Scanner;
 class Utils {
     static final String HTTP_1_1 = "HTTP/1.1";
     static final int ClientToServerPort = 40140;
-    static final int ServerToClientPort = 40140;
-    static final int DHTToDHTPort = 40141;
-    static final int ClientToDHTPort = 40140;
-    static final int DHTToClientPort = 40140;
+    static final int ServerToClientPort = 40141;
+    static final int DHTToDHTPort = 40142;
+    static final int ClientToDHTPort = 40143;
+    static final int DHTToClientPort = 40144;
 
     static String defaultIPAddress = "127.0.0.1";
 

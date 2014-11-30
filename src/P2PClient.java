@@ -43,9 +43,9 @@ class P2PClient {
         System.out.printf("The file %s can be found at the peer IP: %s\n", contentName, peerProvider.toString());
         RequestFile(peerProvider);
     }
-    void Update(String contentName, int portNumber) throws IOException
+    void Update(String contentName) throws IOException
     {
-        String request = "update " + portNumber + " " + contentName;
+        String request = "update " + contentName;
         int serverNum = Utils.Hash(contentName);
         String response = CreateRequest(request, serverNum);
         System.out.println(response);
@@ -76,10 +76,9 @@ class P2PClient {
     void RequestFile(ContentRecord record) {
 
         String hostName = record.ContentOwnerIP;
-        int portNumber = record.ContentOwnerPort;
         System.out.println("Attempting to contact server");
         try {
-            Socket socket = new Socket(hostName, portNumber);
+            Socket socket = new Socket(hostName, Utils.ClientToServerPort);
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader( new InputStreamReader(socket.getInputStream()));
             out.println("GET " + record.ContentName + " " + Utils.HTTP_1_1);

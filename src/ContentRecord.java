@@ -6,23 +6,21 @@ import java.util.Scanner;
 class ContentRecord {
     public final String ContentName;
     public final String ContentOwnerIP;
-    public final int ContentOwnerPort;
-    public ContentRecord(String ContentName, String ContentOwnerIP, int ContentOwnerPort)
+    public ContentRecord(String ContentName, String ContentOwnerIP)
     {
         this.ContentName = ContentName;
         this.ContentOwnerIP = ContentOwnerIP;
-        this.ContentOwnerPort = ContentOwnerPort;
     }
 
     public static ContentRecord parseRecord(String formattedString) {
         Scanner sc = new Scanner(formattedString);
         String name = sc.next();
-        String[] ipAndPort = sc.next().split(":");
-        return new ContentRecord(name, ipAndPort[0], Integer.parseInt(ipAndPort[1]));
+        String ip = sc.next();
+        return new ContentRecord(name, ip);
     }
 
     public String toString()
     {
-        return String.format("%s %s\n", ContentName, ContentOwnerIP+":"+ContentOwnerPort);
+        return String.format("%s %s\n", ContentName, ContentOwnerIP);
     }
 }
