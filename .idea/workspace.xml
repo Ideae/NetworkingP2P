@@ -2,32 +2,20 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
+      <artifact name="NetworkingP2P:jar" />
       <artifact name="P2PApp:jar" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3fa1545-1707-4542-96d7-89a5f32bc4e1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/jars/DirectoryServer.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/jars/P2PApp.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/NetworkingP2P_jar.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/P2PApp_jar.xml" />
-      <change type="DELETED" beforePath="C:\Users\Dante\Desktop\Repos\NetworkingP2P\out\production\NetworkingP2P\com\company\ContentRecord.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Dante\Desktop\Repos\NetworkingP2P\out\production\NetworkingP2P\com\company\DirectoryServer$1.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Dante\Desktop\Repos\NetworkingP2P\out\production\NetworkingP2P\com\company\DirectoryServer$1DirectoryTCPThread.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Dante\Desktop\Repos\NetworkingP2P\out\production\NetworkingP2P\com\company\DirectoryServer.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Dante\Desktop\Repos\NetworkingP2P\out\production\NetworkingP2P\com\company\P2PClient.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Dante\Desktop\Repos\NetworkingP2P\out\production\NetworkingP2P\com\company\ServerRecord.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Dante\Desktop\Repos\NetworkingP2P\out\production\NetworkingP2P\com\company\TestClient.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Dante\Desktop\Repos\NetworkingP2P\out\production\NetworkingP2P\com\company\Utils.class" afterPath="" />
-      <change type="MOVED" beforePath="C:\Users\Dante\Desktop\Repos\NetworkingP2P\src\com\company\ContentRecord.java" afterPath="$PROJECT_DIR$/src/ContentRecord.java" />
-      <change type="MOVED" beforePath="C:\Users\Dante\Desktop\Repos\NetworkingP2P\src\com\company\DirectoryServer.java" afterPath="$PROJECT_DIR$/src/DirectoryServer.java" />
-      <change type="MOVED" beforePath="C:\Users\Dante\Desktop\Repos\NetworkingP2P\src\com\company\P2PApp.java" afterPath="$PROJECT_DIR$/src/P2PApp.java" />
-      <change type="MOVED" beforePath="C:\Users\Dante\Desktop\Repos\NetworkingP2P\src\com\company\P2PClient.java" afterPath="$PROJECT_DIR$/src/P2PClient.java" />
-      <change type="MOVED" beforePath="C:\Users\Dante\Desktop\Repos\NetworkingP2P\src\com\company\P2PServer.java" afterPath="$PROJECT_DIR$/src/P2PServer.java" />
-      <change type="MOVED" beforePath="C:\Users\Dante\Desktop\Repos\NetworkingP2P\src\com\company\ServerRecord.java" afterPath="$PROJECT_DIR$/src/ServerRecord.java" />
-      <change type="MOVED" beforePath="C:\Users\Dante\Desktop\Repos\NetworkingP2P\src\com\company\Utils.java" afterPath="$PROJECT_DIR$/src/Utils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    <list default="true" id="b3fa1545-1707-4542-96d7-89a5f32bc4e1" name="Default" comment="Jars">
+      <change type="DELETED" beforePath="C:\Users\Dante\Desktop\Repos\NetworkingP2P\.idea\workspace.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jars/DirectoryServer.jar" afterPath="$PROJECT_DIR$/jars/DirectoryServer.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jars/P2PApp.jar" afterPath="$PROJECT_DIR$/jars/P2PApp.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DirectoryServer.java" afterPath="$PROJECT_DIR$/src/DirectoryServer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/P2PApp.java" afterPath="$PROJECT_DIR$/src/P2PApp.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/P2PClient.java" afterPath="$PROJECT_DIR$/src/P2PClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Utils.java" afterPath="$PROJECT_DIR$/src/Utils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
     </list>
     <ignored path="NetworkingP2P.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -54,9 +42,13 @@
       <file leaf-file-name="DirectoryServer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/DirectoryServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3390" max-vertical-offset="8592">
-              <caret line="215" column="6" selection-start-line="215" selection-start-column="6" selection-end-line="215" selection-end-column="6" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="7703" max-vertical-offset="8448">
+              <caret line="337" column="103" selection-start-line="337" selection-start-column="103" selection-end-line="337" selection-end-column="103" />
+              <folding>
+                <element signature="e#571#588#0" expanded="true" />
+                <element signature="e#699#733#0" expanded="true" />
+                <element signature="e#11468#11483#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -64,8 +56,8 @@
       <file leaf-file-name="P2PApp.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/P2PApp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="720" max-vertical-offset="2760">
-              <caret line="41" column="29" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1823" max-vertical-offset="2640">
+              <caret line="82" column="25" selection-start-line="82" selection-start-column="25" selection-end-line="82" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -74,18 +66,41 @@
       <file leaf-file-name="ContentRecord.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ContentRecord.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="816">
+            <state vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="816">
               <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ServerRecord.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="P2PClient.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/P2PClient.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.85328186" vertical-offset="2386" max-vertical-offset="2904">
+              <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
+              <folding>
+                <element signature="e#269#286#0" expanded="true" />
+                <element signature="e#365#382#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ServerRecord.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ServerRecord.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7288136" vertical-offset="381" max-vertical-offset="912">
+            <state vertical-scroll-proportion="0.0" vertical-offset="198" max-vertical-offset="912">
               <caret line="32" column="2" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Utils.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Utils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="784" max-vertical-offset="1296">
+              <caret line="42" column="50" selection-start-line="42" selection-start-column="50" selection-end-line="42" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -100,6 +115,16 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/src/DirectoryServer.java" />
+        <option value="$PROJECT_DIR$/src/P2PApp.java" />
+        <option value="$PROJECT_DIR$/src/Utils.java" />
+        <option value="$PROJECT_DIR$/src/P2PClient.java" />
+      </list>
+    </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
@@ -118,7 +143,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
-    <option name="STATE" value="0" />
+    <option name="STATE" value="2" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -133,9 +158,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -248,6 +270,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -263,7 +288,7 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/com/company" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="true" />
@@ -579,12 +604,20 @@
       <created>1417333945357</created>
       <updated>1417333945357</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Jars">
+      <created>1417342378219</created>
+      <updated>1417342378219</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Jars2">
+      <created>1417342455281</created>
+      <updated>1417342455281</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1612" height="876" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -600,7 +633,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329718" sideWeight="0.5" order="14" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2242268" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2242268" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3951613" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -641,7 +674,9 @@
     <MESSAGE value="DingDongs." />
     <MESSAGE value="again" />
     <MESSAGE value="again again" />
-    <option name="LAST_COMMIT_MESSAGE" value="again again" />
+    <MESSAGE value="Jars" />
+    <MESSAGE value="Jars2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Jars2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -655,9 +690,49 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/DirectoryServer.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="5160" max-vertical-offset="8976">
+          <caret line="215" column="6" selection-start-line="215" selection-start-column="6" selection-end-line="215" selection-end-column="6" />
+          <folding>
+            <element signature="e#571#588#0" expanded="true" />
+            <element signature="e#699#733#0" expanded="true" />
+            <element signature="e#11468#11483#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/P2PApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="984" max-vertical-offset="2808">
+          <caret line="41" column="29" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ContentRecord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="816">
+          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ServerRecord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="381" max-vertical-offset="912">
+          <caret line="32" column="2" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DirectoryServer.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="9024">
           <caret line="331" column="17" selection-start-line="331" selection-start-column="17" selection-end-line="331" selection-end-column="17" />
-          <folding />
+          <folding>
+            <element signature="e#571#588#0" expanded="true" />
+            <element signature="e#699#733#0" expanded="true" />
+            <element signature="e#11468#11483#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -681,7 +756,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3096">
           <caret line="28" column="9" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
-          <folding />
+          <folding>
+            <element signature="e#269#286#0" expanded="true" />
+            <element signature="e#365#382#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -705,7 +783,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="442" max-vertical-offset="5916">
           <caret line="26" column="26" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
-          <folding />
+          <folding>
+            <element signature="e#571#588#0" expanded="true" />
+            <element signature="e#699#733#0" expanded="true" />
+            <element signature="e#11468#11483#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -721,7 +803,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2159">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#269#286#0" expanded="true" />
+            <element signature="e#365#382#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -745,7 +830,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6392">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#571#588#0" expanded="true" />
+            <element signature="e#699#733#0" expanded="true" />
+            <element signature="e#11468#11483#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -753,7 +842,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="2516">
           <caret line="30" column="47" selection-start-line="28" selection-start-column="12" selection-end-line="30" selection-end-column="47" />
-          <folding />
+          <folding>
+            <element signature="e#269#286#0" expanded="true" />
+            <element signature="e#365#382#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -777,7 +869,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="3553">
           <caret line="17" column="42" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
-          <folding />
+          <folding>
+            <element signature="e#571#588#0" expanded="true" />
+            <element signature="e#699#733#0" expanded="true" />
+            <element signature="e#11468#11483#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -785,7 +881,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1598">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#269#286#0" expanded="true" />
+            <element signature="e#365#382#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -817,7 +916,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="3485">
           <caret line="12" column="74" selection-start-line="12" selection-start-column="74" selection-end-line="12" selection-end-column="74" />
-          <folding />
+          <folding>
+            <element signature="e#571#588#0" expanded="true" />
+            <element signature="e#699#733#0" expanded="true" />
+            <element signature="e#11468#11483#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -825,7 +928,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="1547">
           <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#269#286#0" expanded="true" />
+            <element signature="e#365#382#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -857,7 +963,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3298">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#571#588#0" expanded="true" />
+            <element signature="e#699#733#0" expanded="true" />
+            <element signature="e#11468#11483#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -865,7 +975,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="215" max-vertical-offset="1479">
           <caret line="33" column="74" selection-start-line="33" selection-start-column="74" selection-end-line="33" selection-end-column="74" />
-          <folding />
+          <folding>
+            <element signature="e#269#286#0" expanded="true" />
+            <element signature="e#365#382#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -897,7 +1010,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3298">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#571#588#0" expanded="true" />
+            <element signature="e#699#733#0" expanded="true" />
+            <element signature="e#11468#11483#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -905,7 +1022,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="243" max-vertical-offset="1479">
           <caret line="76" column="14" selection-start-line="76" selection-start-column="14" selection-end-line="76" selection-end-column="14" />
-          <folding />
+          <folding>
+            <element signature="e#269#286#0" expanded="true" />
+            <element signature="e#365#382#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -947,26 +1067,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/P2PClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="672" max-vertical-offset="3096">
-          <caret line="28" column="9" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/P2PServer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.58301157" vertical-offset="1810" max-vertical-offset="2664">
           <caret line="102" column="40" selection-start-line="102" selection-start-column="40" selection-end-line="102" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Utils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="1416">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -979,27 +1083,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ServerRecord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="198" max-vertical-offset="912">
+          <caret line="32" column="2" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/DirectoryServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3390" max-vertical-offset="8592">
-          <caret line="215" column="6" selection-start-line="215" selection-start-column="6" selection-end-line="215" selection-end-column="6" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="7703" max-vertical-offset="8448">
+          <caret line="337" column="103" selection-start-line="337" selection-start-column="103" selection-end-line="337" selection-end-column="103" />
+          <folding>
+            <element signature="e#571#588#0" expanded="true" />
+            <element signature="e#699#733#0" expanded="true" />
+            <element signature="e#11468#11483#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/P2PApp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="720" max-vertical-offset="2760">
-          <caret line="41" column="29" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1823" max-vertical-offset="2640">
+          <caret line="82" column="25" selection-start-line="82" selection-start-column="25" selection-end-line="82" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ServerRecord.java">
+    <entry file="file://$PROJECT_DIR$/src/Utils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7288136" vertical-offset="381" max-vertical-offset="912">
-          <caret line="32" column="2" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="784" max-vertical-offset="1296">
+          <caret line="42" column="50" selection-start-line="42" selection-start-column="50" selection-end-line="42" selection-end-column="50" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/P2PClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.85328186" vertical-offset="2386" max-vertical-offset="2904">
+          <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
+          <folding>
+            <element signature="e#269#286#0" expanded="true" />
+            <element signature="e#365#382#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

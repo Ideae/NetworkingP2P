@@ -80,22 +80,17 @@ class P2PApp {
             String line = sc.nextLine();
             Scanner scLine = new Scanner(line);
             String command = scLine.next();
-            switch (command) {
-                case "update": {
-                    String filename = scLine.next();
-                    p2pClient.Update(filename, serverPort);
-                    break;
-                }
-                case "query": {
-                    String filename = scLine.next();
-                    p2pClient.Query(filename);
-                    break;
-                }
-                case "exit":
-                    p2pClient.Exit();
-                    p2pServer.Finish();
-                    System.exit(1);
-                    return;
+            if (command.equals("update")) {
+                String filename = scLine.next();
+                p2pClient.Update(filename, serverPort);
+            } else if (command.equals("query")) {
+                String filename = scLine.next();
+                p2pClient.Query(filename);
+            } else if (command.equals("exit")) {
+                p2pClient.Exit();
+                p2pServer.Finish();
+                System.exit(1);
+                return;
             }
         }
     }

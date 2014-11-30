@@ -40,7 +40,7 @@ class Utils {
     }
 
     static ArrayList<String> getHttpHeaders(BufferedReader in) throws IOException {
-        ArrayList<String> headers = new ArrayList<>();
+        ArrayList<String> headers = new ArrayList<String>();
         while (true) {
             String line = in.readLine();
             if (line.equals("")) break;

@@ -7,8 +7,8 @@ import java.util.*;
 class P2PClient {
     private final int DHTPort;
     //static int FirstDirectoryServerPort = 4441;
-    private final HashMap<Integer, String> serverIPs = new HashMap<>();
-    private final HashMap<String, Integer> contentToDHTServer = new HashMap<>();
+    private final HashMap<Integer, String> serverIPs = new HashMap<Integer, String>();
+    private final HashMap<String, Integer> contentToDHTServer = new HashMap<String, Integer>();
 
     public P2PClient(int DHTPort, String serverIP) throws IOException {
         this.DHTPort = DHTPort;
@@ -78,11 +78,10 @@ class P2PClient {
         String hostName = record.ContentOwnerIP;
         int portNumber = record.ContentOwnerPort;
         System.out.println("Attempting to contact server");
-        try (
-                Socket socket = new Socket(hostName, portNumber);
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader( new InputStreamReader(socket.getInputStream()))
-        ) {
+        try {
+            Socket socket = new Socket(hostName, portNumber);
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader( new InputStreamReader(socket.getInputStream()));
             out.println("GET " + record.ContentName + " " + Utils.HTTP_1_1);
             out.println();
 
