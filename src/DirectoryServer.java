@@ -50,12 +50,16 @@ public class DirectoryServer
 
 
 
-        System.out.println("Enter IP of this DHT Node:");
-        String IP = sc.nextLine();
-        if (IP.isEmpty()) IP = Utils.defaultIPAddress;
+        //System.out.println("Enter IP of this DHT Node:");
+        //String IP = sc.nextLine();
+        //if (IP.isEmpty()) IP = Utils.defaultIPAddress;
+
+        InetAddress current = InetAddress.getLocalHost();
+        String Address = current.getHostAddress();
+        System.out.println("IP of this DHT node is: " + Address);
         //thisServerRecord = new ServerRecord(serverID, IP, portNumber);
         //thisServerRecord = new ServerRecord(IP, portNumber);
-        thisServerIP = IP;
+        thisServerIP = Address;
 
         System.out.println("Enter IP of the predecessor DHT Node:");
         String NextIP = sc.nextLine();
