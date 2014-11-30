@@ -170,13 +170,17 @@ class UpdateThread extends Thread {
     }
 
     String handleInit(String senderIP) {
+        if(Utils.debug)System.out.println("Handle init has been called.");
         if (DirectoryServer.serverIPs.size() < 4) {
             //use tcp to get all records
                 try{
+                    if(Utils.debug)System.out.println("About to make socket");
                     Socket socket = new Socket(DirectoryServer.nextServerIP, Utils.DHTToDHTPort);
                     PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                     BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    if(Utils.debug)System.out.println("About to read");
                     in.readLine();
+                    if(Utils.debug)System.out.println("About to write");
                     String message = "init\n" + senderIP + "\n" + DirectoryServer.thisServerIP + " " + DirectoryServer.serverid;
                     out.println(message);
 
@@ -239,11 +243,13 @@ class DirectoryTCPThread extends Thread {
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(socket.getInputStream()));
 
+            if(Utils.debug)System.out.println("we're about to receive an input");
 
             String inputLine, outputLine;
             outputLine = "request received from server " + DirectoryServer.thisServerIP;
             out.println(outputLine);
             inputLine = in.readLine();
+            if(Utils.debug)System.out.println("inputLine was received: " + inputLine);
             if (inputLine.equals("init")) {
                 String fullmessage = in.readLine() + "\n";
                 while ((inputLine = in.readLine()) != null) {
