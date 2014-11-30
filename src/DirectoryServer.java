@@ -9,6 +9,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -27,47 +28,62 @@ public class DirectoryServer
 
     //ports: 40140 - 40149
 
+    private static final HashMap<Integer, String> testMap;
+    static
+    {
+        testMap = new HashMap<Integer, String>();
+        testMap.put(1, "141.117.57.40");
+        testMap.put(2, "141.117.57.42");
+        testMap.put(3, "141.117.57.41");
+        testMap.put(4, "141.117.57.46");
+    }
+
     public static void main(String[] args) throws IOException {
 
 
         Scanner sc = new Scanner(System.in);
 
         System.out.println("\n------DHT SERVER------\n");
-        if (Utils.debug){
-
-        }
-        System.out.println("Enter ServerID of this DHT Node:");
-        String idString;
-        idString = sc.nextLine();
-        while (!idString.matches("^[1-4]$"))
-        {
-            System.out.println("Error, Please enter a valid Server number from 1 to 4:");
-            idString = sc.nextLine();
-        }
-        serverid = Integer.parseInt(idString);
-
-
-
-        //System.out.println("Enter IP of this DHT Node:");
-        //String IP = sc.nextLine();
-        //if (IP.isEmpty()) IP = Utils.defaultIPAddress;
-
         InetAddress current = InetAddress.getLocalHost();
         String Address = current.getHostAddress();
         System.out.println("IP of this DHT node is: " + Address);
-        //thisServerRecord = new ServerRecord(serverID, IP, portNumber);
-        //thisServerRecord = new ServerRecord(IP, portNumber);
         thisServerIP = Address;
 
-        System.out.println("Enter IP of the successor DHT Node:");
-        String NextIP = sc.nextLine();
-        if (NextIP.isEmpty()) NextIP = Utils.defaultIPAddress;
-        //int nextID = (serverID % 4) + 1;
-        //nextServerRecord = new ServerRecord(nextID, NextIP, 4440 + nextID);
-        //nextServerRecord = new ServerRecord(NextIP, 4440 + nextID);
-        nextServerIP = NextIP;
+        if (!Utils.debug){
+            System.out.println("Enter ServerID of this DHT Node:");
+            String idString;
+            idString = sc.nextLine();
+            while (!idString.matches("^[1-4]$"))
+            {
+                System.out.println("Error, Please enter a valid Server number from 1 to 4:");
+                idString = sc.nextLine();
+            }
+            serverid = Integer.parseInt(idString);
 
-        //UpdateThread updThread = new UpdateThread(portNumber);
+            System.out.println("Enter IP of the successor DHT Node:");
+            String NextIP = sc.nextLine();
+            if (NextIP.isEmpty()) NextIP = Utils.defaultIPAddress;
+            nextServerIP = NextIP;
+        } else{
+            if (thisServerIP.equals(testMap.get(1))){
+                nextServerIP = testMap.get(2);
+                serverid = 1;
+            }
+            else if (thisServerIP.equals(testMap.get(2))){
+                nextServerIP = testMap.get(3);
+                serverid = 2;
+            }
+            else if (thisServerIP.equals(testMap.get(3))){
+                nextServerIP = testMap.get(4);
+                serverid = 3;
+            }
+            else if (thisServerIP.equals(testMap.get(4))){
+                nextServerIP = testMap.get(1);
+                serverid = 4;
+            }
+        }
+
+
         UpdateThread updThread = new UpdateThread(Utils.DHTToClientPort);
         updThread.start();
 
