@@ -7,15 +7,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3fa1545-1707-4542-96d7-89a5f32bc4e1" name="Default" comment="Jars">
-      <change type="DELETED" beforePath="C:\Users\Dante\Desktop\Repos\NetworkingP2P\.idea\workspace.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jars/DirectoryServer.jar" afterPath="$PROJECT_DIR$/jars/DirectoryServer.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jars/P2PApp.jar" afterPath="$PROJECT_DIR$/jars/P2PApp.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DirectoryServer.java" afterPath="$PROJECT_DIR$/src/DirectoryServer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/P2PApp.java" afterPath="$PROJECT_DIR$/src/P2PApp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/P2PClient.java" afterPath="$PROJECT_DIR$/src/P2PClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Utils.java" afterPath="$PROJECT_DIR$/src/Utils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+    <list default="true" id="b3fa1545-1707-4542-96d7-89a5f32bc4e1" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="NetworkingP2P.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -73,15 +67,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="P2PClient.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="P2PClient.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/P2PClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.85328186" vertical-offset="2386" max-vertical-offset="2904">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2386" max-vertical-offset="2904">
               <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
               <folding>
                 <element signature="e#269#286#0" expanded="true" />
                 <element signature="e#365#382#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MANIFEST.MF" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.13559322" vertical-offset="0" max-vertical-offset="531">
+              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -283,18 +287,19 @@
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="recentsLimit" value="5" />
-    <property name="options.lastSelected" value="configurable.group.tools" />
+    <property name="options.lastSelected" value="reference.projectsettings.compiler.javacompiler" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/com/company" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="extract.method.default.visibility" value="private" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -305,10 +310,10 @@
       <recent name="C:\Users\Dante\Desktop\Repos\NetworkingP2P\src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.P2PApp1">
+  <component name="RunManager" selected="Application.Server2">
     <configuration default="false" name="Server1" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="com.company.DirectoryServer" />
+      <option name="MAIN_CLASS_NAME" value="DirectoryServer" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="4441" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -443,26 +448,9 @@
       <listeners />
       <method />
     </configuration>
-    <configuration default="false" name="Client" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="com.company.TestClient" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" value="" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="NetworkingP2P" />
-      <envs />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
     <configuration default="false" name="P2PApp2" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="com.company.P2PApp" />
+      <option name="MAIN_CLASS_NAME" value="P2PApp" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -485,7 +473,7 @@
     </configuration>
     <configuration default="false" name="P2PApp1" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="com.company.P2PApp" />
+      <option name="MAIN_CLASS_NAME" value="P2PApp" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -502,7 +490,7 @@
     </configuration>
     <configuration default="false" name="Server2" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="com.company.DirectoryServer" />
+      <option name="MAIN_CLASS_NAME" value="DirectoryServer" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="4442" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -519,7 +507,7 @@
     </configuration>
     <configuration default="false" name="Server3" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="com.company.DirectoryServer" />
+      <option name="MAIN_CLASS_NAME" value="DirectoryServer" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="4443" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -536,7 +524,7 @@
     </configuration>
     <configuration default="false" name="Server4" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="com.company.DirectoryServer" />
+      <option name="MAIN_CLASS_NAME" value="DirectoryServer" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="4444" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -551,14 +539,13 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <list size="7">
-      <item index="0" class="java.lang.String" itemvalue="Application.Client" />
-      <item index="1" class="java.lang.String" itemvalue="Application.P2PApp2" />
-      <item index="2" class="java.lang.String" itemvalue="Application.P2PApp1" />
-      <item index="3" class="java.lang.String" itemvalue="Application.Server2" />
-      <item index="4" class="java.lang.String" itemvalue="Application.Server3" />
-      <item index="5" class="java.lang.String" itemvalue="Application.Server4" />
-      <item index="6" class="java.lang.String" itemvalue="Application.Server1" />
+    <list size="6">
+      <item index="0" class="java.lang.String" itemvalue="Application.P2PApp2" />
+      <item index="1" class="java.lang.String" itemvalue="Application.P2PApp1" />
+      <item index="2" class="java.lang.String" itemvalue="Application.Server2" />
+      <item index="3" class="java.lang.String" itemvalue="Application.Server3" />
+      <item index="4" class="java.lang.String" itemvalue="Application.Server4" />
+      <item index="5" class="java.lang.String" itemvalue="Application.Server1" />
     </list>
     <recent_temporary>
       <list size="1">
@@ -612,7 +599,11 @@
       <created>1417342455281</created>
       <updated>1417342455281</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="onepointsix&#10;">
+      <created>1417343766024</created>
+      <updated>1417343766024</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -676,7 +667,8 @@
     <MESSAGE value="again again" />
     <MESSAGE value="Jars" />
     <MESSAGE value="Jars2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Jars2" />
+    <MESSAGE value="onepointsix&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="onepointsix&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1121,12 +1113,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/P2PClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.85328186" vertical-offset="2386" max-vertical-offset="2904">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2386" max-vertical-offset="2904">
           <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
           <folding>
             <element signature="e#269#286#0" expanded="true" />
             <element signature="e#365#382#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13559322" vertical-offset="0" max-vertical-offset="531">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
