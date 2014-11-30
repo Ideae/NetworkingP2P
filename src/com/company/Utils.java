@@ -12,6 +12,7 @@ public class Utils
         int total = 0;
         for(char c : contentName.toCharArray())
         {
+            if (c == '.') break;
             total += (int)c;
         }
         return (total % 4) + 1;

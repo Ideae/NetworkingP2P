@@ -20,9 +20,11 @@ public class DirectoryServer
     static int counter = 0;
     static int portNumber;
     static int serverID;
-    static String ipAddress = "127.0.0.1";
+    static String defaultIPAddress = "127.0.0.1";
     protected static DatagramSocket socket = null;
     static boolean debug = false;
+
+    //ports: 40140 - 40149
 
     public static void main(String[] args) throws IOException {
 
@@ -32,14 +34,17 @@ public class DirectoryServer
         }
         portNumber = Integer.parseInt(args[0]);
         serverID = portNumber % 10;
-        thisServerRecord = new ServerRecord(serverID, ipAddress, portNumber);
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter IP of this DHT Node:");
+        String IP = sc.nextLine();
+        if (IP.isEmpty()) IP = defaultIPAddress;
+        thisServerRecord = new ServerRecord(serverID, IP, portNumber);
+
+        System.out.println("Enter IP of the predecessor DHT Node:");
+        String NextIP = sc.nextLine();
+        if (NextIP.isEmpty()) NextIP = defaultIPAddress;
         int nextID = (serverID % 4) + 1;
-        nextServerRecord = new ServerRecord(nextID, ipAddress, 4440 + nextID);
-        //hack
-        //for(int i = 1; i <= 4; i++)
-        //{
-        //    serverRecords.put(i, new ServerRecord(i, ipAddress, 4440 + i));
-        //}
+        nextServerRecord = new ServerRecord(nextID, NextIP, 4440 + nextID);
 
         Thread updThread = new Thread(new Runnable()
         {
@@ -158,9 +163,6 @@ public class DirectoryServer
                 sc.next();
                 int portNum = sc.nextInt();
                 String contentName = sc.next();
-                //more complex implementation possibly needed (only store peers 'in charge' of a
-                //contentName who store all peers that provide that file, and query those peers for
-                //the entire list of providers)
                 if (!contentRecords.containsKey(contentName))
                 {
                     contentRecords.put(contentName, new ArrayList<ContentRecord>());
@@ -193,9 +195,7 @@ public class DirectoryServer
         ) {
             while(true)
             {
-                //System.out.println("waiting for tcp request");
                 Socket clientSocket = serverSocket.accept();
-                //System.out.println("got tcp request");
                 class DirectoryTCPThread extends Thread
                 {
                     private Socket socket = null;
@@ -364,10 +364,6 @@ public class DirectoryServer
                     + portNumber + " or listening for a connection");
             System.out.println(e.getMessage());
         }
-    }
-    static void beginInit()
-    {
-
     }
 
 }

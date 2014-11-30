@@ -220,8 +220,6 @@ public class P2PClient
     }
     }
     public static void Listen(int portNumber){
-
-
         try (
                 ServerSocket serverSocket = new ServerSocket(portNumber);
         ) {
@@ -273,8 +271,6 @@ public class P2PClient
                                 }
                             }
                             out.flush();
-
-
                             in.close();
                             out.close();
                             clientSocket.close();
