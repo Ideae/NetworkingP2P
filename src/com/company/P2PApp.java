@@ -72,6 +72,7 @@ public class P2PApp {
             }
             PopulateFiles();
             p2pServer = new P2PServer(serverPort);
+            p2pServer.start();
         } else {
             System.out.println("Running in receive only mode.");
         }
