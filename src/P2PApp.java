@@ -8,7 +8,7 @@ import java.util.Scanner;
  */
 class P2PApp {
 
-    public static File sharesDirectory; //Concurrency?
+    public static File sharesDirectory;
     private static P2PClient p2pClient;
     private static P2PServer p2pServer;
     private static int serverPort;
@@ -20,10 +20,8 @@ class P2PApp {
         while (true) {
             System.out.println("P2PClient: Enter IP of DHT Node:");
             String IP = sc.nextLine();
-            //InetAddress inad = InetAddress.getByName(IP);
             IP = InetAddress.getByName(IP).getHostAddress();
             try {
-                //p2pClient = new P2PClient(DHTPort, new ServerRecord(1, IP, port));
                 p2pClient = new P2PClient(IP);
             } catch (IOException e) {
                 System.out.println("P2PClient: Connection Error: " + e.getMessage() + ". Please try again.");
