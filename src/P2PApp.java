@@ -52,7 +52,7 @@ class P2PApp {
         System.out.println("P2PClient: Connected to DHT Ring, broadcast Files? (y/n)");
 
         if (Utils.YesOrNo(sc)) {
-            System.out.println("P2PClient: Current sharing folder is " + sharesDirectory.getAbsolutePath());
+            System.out.println("P2PServer: Current sharing folder is " + sharesDirectory.getAbsolutePath());
 
             PopulateFiles();
             p2pServer = new P2PServer();
