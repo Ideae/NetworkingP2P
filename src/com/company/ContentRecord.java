@@ -5,11 +5,10 @@ import java.util.Scanner;
 /**
  * Created by zacktibia on 2014-11-26.
  */
-public class ContentRecord
-{
-    public String ContentName;
-    public String ContentOwnerIP;
-    public int ContentOwnerPort;
+class ContentRecord {
+    public final String ContentName;
+    public final String ContentOwnerIP;
+    public final int ContentOwnerPort;
     public ContentRecord(String ContentName, String ContentOwnerIP, int ContentOwnerPort)
     {
         this.ContentName = ContentName;

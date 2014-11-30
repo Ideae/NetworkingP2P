@@ -19,8 +19,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class DirectoryServer
 {
-    static ConcurrentHashMap<Integer, String> serverIPs = new ConcurrentHashMap<>();
-    static ConcurrentHashMap<String, ArrayList<ContentRecord>> contentRecords = new ConcurrentHashMap<>();
+    static final ConcurrentHashMap<Integer, String> serverIPs = new ConcurrentHashMap<>();
+    static final ConcurrentHashMap<String, ArrayList<ContentRecord>> contentRecords = new ConcurrentHashMap<>();
     //static ServerRecord thisServerRecord;
     //static ServerRecord nextServerRecord;
     static String thisServerIP, nextServerIP;
@@ -90,8 +90,7 @@ public class DirectoryServer
 }
 
 class UpdateThread extends Thread {
-    protected static DatagramSocket socket = null;
-    int portNumber;
+    private final int portNumber;
 
     UpdateThread(int portNumber) {
         this.portNumber = portNumber;
@@ -100,7 +99,7 @@ class UpdateThread extends Thread {
     @Override
     public void run() {
         try {
-            socket = new DatagramSocket(portNumber);
+            DatagramSocket socket = new DatagramSocket(portNumber);
             while (true) {
                 try {
                     byte[] buf = new byte[256];
@@ -110,7 +109,7 @@ class UpdateThread extends Thread {
 
                     String received = new String(packet.getData(), 0, packet.getLength());
                     System.out.println(received);
-                    String response = "";
+                    String response;
                     if (received.equals("init")) {
                         response = handleInit(packet.getAddress().getHostAddress(), packet.getPort());
                     } else if (received.startsWith("update")) {
@@ -145,7 +144,7 @@ class UpdateThread extends Thread {
         try (
                 Socket socket = new Socket(DirectoryServer.nextServerIP, Utils.DHTToDHTPort);
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
         ) {
             in.readLine();
             String message = "exit\n" + senderIP + " " + DirectoryServer.thisServerIP;
@@ -166,7 +165,7 @@ class UpdateThread extends Thread {
                 try (
                         Socket socket = new Socket(DirectoryServer.nextServerIP, Utils.DHTToDHTPort);
                         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
                 ) {
                     in.readLine();
                     String message = "init\n" + senderIP + "\n" + DirectoryServer.thisServerIP + " " + DirectoryServer.serverid;
@@ -205,7 +204,7 @@ class UpdateThread extends Thread {
         Scanner sc = new Scanner(received);
         sc.next();
         String contentName = sc.next();
-        String response = "";
+        String response;
         if (!DirectoryServer.contentRecords.containsKey(contentName)) {
             response = "404 content not found";
         } else {
@@ -237,26 +236,26 @@ class DirectoryTCPThread extends Thread {
             outputLine = "request received from server " + DirectoryServer.thisServerIP;
             out.println(outputLine);
             inputLine = in.readLine();
-            if (inputLine.equals("init"))
-            {
-                String fullmessage = in.readLine() + "\n";
-                while ((inputLine = in.readLine()) != null)
-                {
-                    if (!inputLine.isEmpty())
-                        fullmessage += inputLine + "\n";
-                }
-                //System.out.print("fullmessage:\n" + fullmessage);
-                SendInitMessage(fullmessage);
-            } else if (inputLine.equals("exit"))
-            {
-                SendExitMessage(in.readLine());
-            } else {
-                do
-                {
-                    //System.out.println(inputLine);
-                    outputLine = "I'm a server: " + counter++;
-                    out.println(outputLine);
-                } while ((inputLine = in.readLine()) != null);
+            switch (inputLine) {
+                case "init":
+                    String fullmessage = in.readLine() + "\n";
+                    while ((inputLine = in.readLine()) != null) {
+                        if (!inputLine.isEmpty())
+                            fullmessage += inputLine + "\n";
+                    }
+                    //System.out.print("fullmessage:\n" + fullmessage);
+                    SendInitMessage(fullmessage);
+                    break;
+                case "exit":
+                    SendExitMessage(in.readLine());
+                    break;
+                default:
+                    do {
+                        //System.out.println(inputLine);
+                        outputLine = "I'm a server: " + counter++;
+                        out.println(outputLine);
+                    } while ((inputLine = in.readLine()) != null);
+                    break;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -276,7 +275,7 @@ class DirectoryTCPThread extends Thread {
             try (
                     Socket socket = new Socket(DirectoryServer.nextServerIP, Utils.DHTToDHTPort);
                     PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
             ) {
                 in.readLine();
                 out.println("exit\n" + clientInfo);
@@ -343,7 +342,7 @@ class DirectoryTCPThread extends Thread {
             try (
                     Socket socket = new Socket(DirectoryServer.nextServerIP, Utils.DHTToDHTPort);
                     PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
             ) {
                 in.readLine();
                 out.println("init\n" + newMessage);

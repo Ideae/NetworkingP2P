@@ -8,8 +8,7 @@ import java.util.Scanner;
 /**
  * Created by zacktibia on 2014-11-26.
  */
-public class Utils
-{
+class Utils {
     static final String HTTP_1_1 = "HTTP/1.1";
     static final int ClientToServerPort = 40140;
     static final int ServerToClientPort = 40140;

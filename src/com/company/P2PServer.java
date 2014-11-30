@@ -15,10 +15,10 @@ import java.util.Date;
 /**
  * Created by Dante on 2014-11-29.
  */
-public class P2PServer extends Thread {
+class P2PServer extends Thread {
 
-    ServerSocket serverSocket;
-    private int portNumber;
+    private final int portNumber;
+    private ServerSocket serverSocket;
 
     P2PServer(int portNumber) {
         this.portNumber = portNumber;
@@ -60,19 +60,17 @@ public class P2PServer extends Thread {
 
 class FileSendThread extends Thread {
 
-    private Socket clientSocket;
+    private final Socket clientSocket;
 
     FileSendThread(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }
 
     private static String ConstructResponse(int code, String phrase) {
-        String response =
-                "HTTP/1.1 " + code + " " + phrase + "\n" +
-                        "Connection: close\n" +
-                        "Date: " + new Date().toString() + "\n" +
-                        "\n";
-        return response;
+        return "HTTP/1.1 " + code + " " + phrase + "\n" +
+                "Connection: close\n" +
+                "Date: " + new Date().toString() + "\n" +
+                "\n";
     }
 
     public void run() {

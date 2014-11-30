@@ -6,12 +6,11 @@ import java.util.*;
 /**
  * Created by zacktibia on 2014-11-26.
  */
-public class P2PClient
-{
+class P2PClient {
     private final int DHTPort;
     //static int FirstDirectoryServerPort = 4441;
-    HashMap<Integer, String> serverIPs = new HashMap<>();
-    HashMap<String, Integer> contentToDHTServer = new HashMap<>();
+    private final HashMap<Integer, String> serverIPs = new HashMap<>();
+    private final HashMap<String, Integer> contentToDHTServer = new HashMap<>();
 
     public P2PClient(int DHTPort, String serverIP) throws IOException {
         this.DHTPort = DHTPort;
@@ -51,8 +50,10 @@ public class P2PClient
         String request = "update " + portNumber + " " + contentName;
         int serverNum = Utils.Hash(contentName);
         String response = CreateRequest(request, serverNum);
-        contentToDHTServer.put(contentName, serverNum);
+        System.out.println(response);
         System.out.printf("Stored %s in server %d \n", contentName, serverNum);
+        contentToDHTServer.put(contentName, serverNum);
+
     }
     String CreateRequest(String request, int serverNum) throws IOException
     {
