@@ -29,17 +29,13 @@ public class DirectoryServer
 
     public static void main(String[] args) throws IOException {
 
-        //if (args.length != 1) {
-        //    System.err.println("Specify <port number>");
-        //    System.exit(1);
-        //}
-        //int portNumber = Integer.parseInt(args[0]);
-        //int portNumber = Utils.DHTToDHTPort;
-        //serverID = portNumber % 10;
+
         Scanner sc = new Scanner(System.in);
 
         System.out.println("\n------DHT SERVER------\n");
+        if (Utils.debug){
 
+        }
         System.out.println("Enter ServerID of this DHT Node:");
         String idString;
         idString = sc.nextLine();
@@ -219,7 +215,6 @@ class DirectoryTCPThread extends Thread {
 
     private static int counter = 0;
     private Socket socket = null;
-    private boolean debug = true;
 
     public DirectoryTCPThread(Socket socket) {
         this.socket = socket;
@@ -243,7 +238,7 @@ class DirectoryTCPThread extends Thread {
                     if (!inputLine.isEmpty())
                         fullmessage += inputLine + "\n";
                 }
-                if(debug)System.out.print("fullmessage:\n" + fullmessage);
+                if(Utils.debug)System.out.print("fullmessage:\n" + fullmessage);
                 SendInitMessage(fullmessage);
 
             } else if (inputLine.equals("exit")) {
@@ -251,7 +246,7 @@ class DirectoryTCPThread extends Thread {
 
             } else {
                 do {
-                    if (debug)System.out.println(inputLine);
+                    if (Utils.debug)System.out.println(inputLine);
                     outputLine = "I'm a server: " + counter++;
                     out.println(outputLine);
                 } while ((inputLine = in.readLine()) != null);
@@ -317,7 +312,7 @@ class DirectoryTCPThread extends Thread {
         String newMessage = fullmessage + DirectoryServer.thisServerIP + " " + DirectoryServer.serverid;
         if (firstserver == DirectoryServer.thisServerIP) {
             //send back upd
-            if(debug)System.out.println("SEND BACK USING UDP TO " + p2pclient);
+            if(Utils.debug)System.out.println("SEND BACK USING UDP TO " + p2pclient);
             String returnMessage = firstserver + "\n";
             StoreServerRecord(firstserver, Integer.parseInt(servNum));
             while(sc.hasNext())

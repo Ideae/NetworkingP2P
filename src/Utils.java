@@ -15,6 +15,7 @@ class Utils {
     static final int DHTToClientPort = 40144;
 
     static String defaultIPAddress = "127.0.0.1";
+    public static boolean debug = true;
 
     public static int Hash(String contentName)
     {
