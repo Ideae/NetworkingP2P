@@ -23,9 +23,6 @@ public class DirectoryServer
     static final Map<String, ArrayList<ContentRecord>> contentRecords = new ConcurrentHashMap<String, ArrayList<ContentRecord>>();
     static String thisServerIP, nextServerIP;
     static int serverid;
-    //static int serverID;
-
-    //ports: 40140 - 40149
 
     private static final HashMap<Integer, String> testMap;
     static
@@ -38,28 +35,26 @@ public class DirectoryServer
     }
 
     public static void main(String[] args) throws IOException {
-
-
         Scanner sc = new Scanner(System.in);
 
         System.out.println("\n------DHT SERVER------\n");
         InetAddress current = InetAddress.getLocalHost();
         String Address = current.getHostAddress();
-        System.out.println("IP of this DHT node is: " + Address);
+        System.out.println("DHTServer: IP of this DHT node is: " + Address);
         thisServerIP = Address;
         boolean tempDebug = false;
-        if (!tempDebug){//(!Utils.debug){
-            System.out.println("Enter ServerID of this DHT Node:");
+        if (!tempDebug){
+            System.out.println("DHTServer: Enter ServerID of this DHT Node:");
             String idString;
             idString = sc.nextLine();
             while (!idString.matches("^[1-4]$"))
             {
-                System.out.println("Error, Please enter a valid Server number from 1 to 4:");
+                System.out.println("DHTServer: Error, Please enter a valid Server number from 1 to 4:");
                 idString = sc.nextLine();
             }
             serverid = Integer.parseInt(idString);
 
-            System.out.println("Enter IP of the successor DHT Node:");
+            System.out.println("DHTServer: Enter IP of the successor DHT Node:");
             String NextIP = sc.nextLine();
             if (NextIP.isEmpty()) NextIP = Utils.defaultIPAddress;
             nextServerIP = NextIP;
@@ -83,12 +78,11 @@ public class DirectoryServer
         }
 
 
-        System.out.println("Server is now listening.");
+        System.out.println("DHTServer: Server is now listening.");
         UpdateThread updThread = new UpdateThread();
         updThread.start();
 
         try {
-            //ServerSocket serverSocket = new ServerSocket(portNumber);
             ServerSocket serverSocket = new ServerSocket(Utils.DHTToDHTPort);
             while (true)
             {
@@ -97,7 +91,7 @@ public class DirectoryServer
                 tcpThread.start();
             }
         } catch (IOException e) {
-            System.out.println("Exception caught when trying to listen on port "
+            System.out.println("DHTServer: Exception caught when trying to listen on port "
                     + Utils.DHTToDHTPort);
             System.out.println(e.getMessage());
         }
@@ -118,7 +112,7 @@ class UpdateThread extends Thread {
                     socket.receive(packet);
 
                     String received = new String(packet.getData(), 0, packet.getLength());
-                    System.out.println("Got message: ("+ received +")\n");
+                    System.out.println("DHTServer: Got message: ("+ received +")\n");
                     String response;
                     if (received.equals("init")) {
                         response = handleInit(packet.getAddress().getHostAddress());
@@ -134,7 +128,6 @@ class UpdateThread extends Thread {
 
                     if (!response.equals("no_response")) {
                         buf = response.getBytes();
-                        // send the response to the client at "address" and "port"
                         InetAddress address = packet.getAddress();
                         int port = packet.getPort();
                         packet = new DatagramPacket(buf, buf.length, address, port);
@@ -150,7 +143,6 @@ class UpdateThread extends Thread {
     }
 
     String handleExit(String senderIP) {
-        //System.out.println(senderIP);
         try  {
             Socket socket = new Socket(DirectoryServer.nextServerIP, Utils.DHTToDHTPort);
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -160,35 +152,33 @@ class UpdateThread extends Thread {
             out.println(message);
 
         } catch (UnknownHostException e) {
-            System.err.println("Don't know about host " + DirectoryServer.nextServerIP);
+            System.err.println("DHTServer: Don't know about host " + DirectoryServer.nextServerIP);
         } catch (IOException e) {
-            System.err.println("Couldn't get I/O for the connection to " +
+            System.err.println("DHTServer: Couldn't get I/O for the connection to " +
                     DirectoryServer.nextServerIP);
         }
         return "no_response";
     }
 
     String handleInit(String senderIP) {
-        if(Utils.debug)System.out.println("Handle init has been called.");
+        if(Utils.debug)System.out.println("DHTServer: Handle init has been called.");
         if (DirectoryServer.serverIPs.size() < 4) {
             //use tcp to get all records
                 try{
-                    if(Utils.debug)System.out.println("About to make socket");
                     Socket socket = new Socket(DirectoryServer.nextServerIP, Utils.DHTToDHTPort);
                     PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                     BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                    if(Utils.debug)System.out.println("About to read");
                     in.readLine();
 
                     String message = "init\n" + senderIP + "\n" + DirectoryServer.thisServerIP + " " + DirectoryServer.serverid + "\nendtaco";
-                    if(Utils.debug)System.out.println("About to write message: ("+message+")");
+                    if(Utils.debug)System.out.println("DHTServer: About to write message: ("+message+")");
                     out.println(message);
                     out.flush();
-                    if(Utils.debug)System.out.println("flushed");
+                    if(Utils.debug)System.out.println("DHTServer: flushed");
                 } catch (UnknownHostException e) {
-                    System.err.println("Don't know about host " + DirectoryServer.nextServerIP);
+                    System.err.println("DHTServer: Don't know about host " + DirectoryServer.nextServerIP);
                 } catch (IOException e) {
-                    System.err.println("Couldn't get I/O for the connection to " +
+                    System.err.println("DHTServer: Couldn't get I/O for the connection to " +
                             DirectoryServer.nextServerIP);
                 }
                 return "no_response";
@@ -244,24 +234,20 @@ class DirectoryTCPThread extends Thread {
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(socket.getInputStream()));
 
-            if(Utils.debug)System.out.println("we're about to receive an input");
-
             String inputLine, outputLine;
             outputLine = "request received from server " + DirectoryServer.thisServerIP;
             out.println(outputLine);
             inputLine = in.readLine();
-            if(Utils.debug)System.out.println("inputLine was received: " + inputLine);
+            if(Utils.debug)System.out.println("DHTServer: inputLine was received: " + inputLine);
             if (inputLine.equals("init")) {
-                if(Utils.debug)System.out.println("Got an init");
+                if(Utils.debug)System.out.println("DHTServer: Got an init");
                 String fullmessage = in.readLine() + "\n";
-                if(Utils.debug)System.out.println("fullmessage 1:(" + fullmessage + ")");
                 while ((inputLine = in.readLine()) != null) {
                     if (inputLine.equals("endtaco")) break;
                     if (!inputLine.isEmpty())
                         fullmessage += inputLine + "\n";
-                    if(Utils.debug)System.out.println("fullmessage 2:(" + fullmessage + ")");
                 }
-                if(Utils.debug)System.out.print("fullmessage 3:\n" + fullmessage);
+                if(Utils.debug)System.out.print("DHTServer: fullmessage:\n" + fullmessage);
                 SendInitMessage(fullmessage);
 
             } else if (inputLine.equals("exit")) {
@@ -283,11 +269,8 @@ class DirectoryTCPThread extends Thread {
     void SendExitMessage(String clientInfo) {
         Scanner sc = new Scanner(clientInfo);
         String clientIP = sc.next();
-        //int clientPort = Integer.parseInt(sc.next());
-        //int serverNumber = Integer.parseInt(sc.next());
         String firstServerIP = sc.next();
         RemoveContentRecords(clientIP);
-        //System.out.println("Comparing ips: " + firstServerIP + " to " + DirectoryServer.thisServerIP);
         if (!firstServerIP.equals(DirectoryServer.thisServerIP)) {
             //continue traversing dht ring
             try {
@@ -297,14 +280,12 @@ class DirectoryTCPThread extends Thread {
                 in.readLine();
                 out.println("exit\n" + clientInfo);
             } catch (UnknownHostException e) {
-                System.err.println("Don't know about host " + DirectoryServer.nextServerIP);
+                System.err.println("DHTServer: Don't know about host " + DirectoryServer.nextServerIP);
             } catch (IOException e) {
-                System.err.println("Couldn't get I/O for the connection to " +
+                System.err.println("DHTServer: Couldn't get I/O for the connection to " +
                         DirectoryServer.nextServerIP);
             }
         }
-
-
     }
 
     void RemoveContentRecords(String clientIP) {
@@ -319,7 +300,7 @@ class DirectoryTCPThread extends Thread {
             }
             for (ContentRecord rec : removeList) {
                 DirectoryServer.contentRecords.get(contentName).remove(rec);
-                System.out.println("Removed content record: " + rec.toString());
+                System.out.println("DHTServer: Removed content record: " + rec.toString());
             }
             if (DirectoryServer.contentRecords.get(contentName).size() == 0)
                 DirectoryServer.contentRecords.remove(contentName);
@@ -333,10 +314,9 @@ class DirectoryTCPThread extends Thread {
         String servNum = sc.next();
 
         String newMessage = fullmessage + DirectoryServer.thisServerIP + " " + DirectoryServer.serverid;
-        //System.out.println("Comparing ips: " + firstserver + " to " + DirectoryServer.thisServerIP);
         if (firstserver.equals(DirectoryServer.thisServerIP)) {
             //send back upd
-            if(Utils.debug)System.out.println("SEND BACK USING UDP TO " + p2pclient);
+            if(Utils.debug)System.out.println("DHTServer: SEND BACK USING UDP TO " + p2pclient);
             String returnMessage = firstserver + " " + servNum + "\n";
             StoreServerRecord(firstserver, Integer.parseInt(servNum));
             while(sc.hasNext())
@@ -365,14 +345,12 @@ class DirectoryTCPThread extends Thread {
                 if(Utils.debug) System.out.println(newMessage);
                 out.println("init\n" + newMessage + "\nendtaco");
             } catch (UnknownHostException e) {
-                System.err.println("Don't know about host " + DirectoryServer.nextServerIP);
+                System.err.println("DHTServer: Don't know about host " + DirectoryServer.nextServerIP);
             } catch (IOException e) {
-                System.err.println("Couldn't get I/O for the connection to " +
+                System.err.println("DHTServer: Couldn't get I/O for the connection to " +
                         DirectoryServer.nextServerIP);
             }
         }
-
-
     }
 
     void StoreServerRecord(String ip, int id) {
@@ -380,9 +358,5 @@ class DirectoryTCPThread extends Thread {
         {
             DirectoryServer.serverIPs.put(id, ip);
         }
-        //ServerRecord rec = ServerRecord.parseRecord(formatString);
-        //if (!DirectoryServer.serverRecords.containsKey(rec.serverID)) {
-        //    DirectoryServer.serverRecords.put(rec.serverID, rec);
-        //}
     }
 }

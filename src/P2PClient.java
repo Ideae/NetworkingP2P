@@ -5,7 +5,6 @@ import java.util.*;
  * Created by zacktibia on 2014-11-26.
  */
 class P2PClient {
-    //static int FirstDirectoryServerPort = 4441;
     private final HashMap<Integer, String> serverIPs = new HashMap<Integer, String>();
     private final HashMap<String, Integer> contentToDHTServer = new HashMap<String, Integer>();
 
@@ -16,10 +15,8 @@ class P2PClient {
         Scanner sc = new Scanner(response);
         while (sc.hasNext())
         {
-            //int num = Integer.parseInt(sc.next());
             String ip = sc.next();
             int id = Integer.parseInt(sc.next());
-            //int serverPort = Integer.parseInt(sc.next());
             if (!serverIPs.containsKey(id))
                 serverIPs.put(id, ip);
         }
@@ -67,12 +64,11 @@ class P2PClient {
         DatagramPacket packet = new DatagramPacket(buf, buf.length, address, Utils.DHTServerListenPortFromClientUDP);
         socket.send(packet);
         if (request.equals("exit")) return "";
-        // get response
+
         buf = new byte[256];
         packet = new DatagramPacket(buf, buf.length);
         socket.receive(packet);
 
-        // display response
         String received = new String(packet.getData(), 0, packet.getLength());
         socket.close();
         return received;
