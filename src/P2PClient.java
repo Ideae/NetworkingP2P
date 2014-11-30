@@ -11,7 +11,7 @@ class P2PClient {
     public P2PClient(String serverIP) throws IOException {
         serverIPs.put(1, serverIP);
         String response = CreateRequest("init", 1);
-        System.out.println("P2PClient: Server's response: " + response);
+        //System.out.println("P2PClient: Server's response: " + response);
         Scanner sc = new Scanner(response);
         while (sc.hasNext())
         {
@@ -20,6 +20,7 @@ class P2PClient {
             if (!serverIPs.containsKey(id))
                 serverIPs.put(id, ip);
         }
+        System.out.println("P2PClient: The DHT server returned all server IPs and they have been stored.");
     }
     void Exit() throws IOException
     {
