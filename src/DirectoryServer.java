@@ -68,7 +68,7 @@ public class DirectoryServer
         nextServerIP = NextIP;
 
         //UpdateThread updThread = new UpdateThread(portNumber);
-        UpdateThread updThread = new UpdateThread(Utils.DHTToClientPort);
+        UpdateThread updThread = new UpdateThread();
         updThread.start();
 
         try {
@@ -89,16 +89,11 @@ public class DirectoryServer
 }
 
 class UpdateThread extends Thread {
-    private final int portNumber;
-
-    UpdateThread(int portNumber) {
-        this.portNumber = portNumber;
-    }
 
     @Override
     public void run() {
         try {
-            DatagramSocket socket = new DatagramSocket(portNumber);
+            DatagramSocket socket = new DatagramSocket(Utils.ClientToDHTPort);
             while (true) {
                 try {
                     byte[] buf = new byte[256];
@@ -110,13 +105,13 @@ class UpdateThread extends Thread {
                     System.out.println(received);
                     String response;
                     if (received.equals("init")) {
-                        response = handleInit(packet.getAddress().getHostAddress(), packet.getPort());
+                        response = handleInit(packet.getAddress().getHostAddress(), Utils.DHTToClientPort);
                     } else if (received.startsWith("update")) {
                         response = handleUpdate(received, packet.getAddress().getHostAddress());
                     } else if (received.startsWith("query")) {
                         response = handleQuery(received);
                     } else if (received.startsWith("exit")) {
-                        response = handleExit(packet.getAddress().getHostAddress(), packet.getPort());
+                        response = handleExit(packet.getAddress().getHostAddress(), Utils.DHTToClientPort);
                     } else {
                         response = "invalid request: {" + received + "}";
                     }
@@ -338,6 +333,7 @@ class DirectoryTCPThread extends Thread {
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 in.readLine();
+                if(Utils.debug) System.out.println(newMessage);
                 out.println("init\n" + newMessage);
             } catch (UnknownHostException e) {
                 System.err.println("Don't know about host " + DirectoryServer.nextServerIP);

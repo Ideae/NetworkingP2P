@@ -14,12 +14,6 @@ class P2PApp {
 
     public static void main(String[] args) throws IOException {
         System.out.println("\n------P2PClient------\n");
-        int DHTPort;
-        if (args.length == 1) {
-            DHTPort = Integer.parseInt(args[0]);
-        } else {
-            DHTPort = Utils.ClientToDHTPort;
-        }
 
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -32,7 +26,7 @@ class P2PApp {
             int port = Integer.parseInt(p);
             try {
                 //p2pClient = new P2PClient(DHTPort, new ServerRecord(1, IP, port));
-                p2pClient = new P2PClient(DHTPort, IP);
+                p2pClient = new P2PClient(IP);
             } catch (IOException e) {
                 System.out.println("Connection Error: " + e.getMessage() + ". Please try again.");
                 continue;

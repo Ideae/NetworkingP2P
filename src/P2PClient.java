@@ -5,13 +5,11 @@ import java.util.*;
  * Created by zacktibia on 2014-11-26.
  */
 class P2PClient {
-    private final int DHTPort;
     //static int FirstDirectoryServerPort = 4441;
     private final HashMap<Integer, String> serverIPs = new HashMap<Integer, String>();
     private final HashMap<String, Integer> contentToDHTServer = new HashMap<String, Integer>();
 
-    public P2PClient(int DHTPort, String serverIP) throws IOException {
-        this.DHTPort = DHTPort;
+    public P2PClient(String serverIP) throws IOException {
         serverIPs.put(1, serverIP);
         String response = CreateRequest("init", 1);
         System.out.println("Response: " + response);
@@ -57,7 +55,7 @@ class P2PClient {
     {
         String ip = serverIPs.get(serverNum);
         DatagramSocket socket;
-        socket = new DatagramSocket(DHTPort);
+        socket = new DatagramSocket(Utils.ClientToDHTPort);
         byte[] buf = request.getBytes();
         InetAddress address = InetAddress.getByName(ip);
         DatagramPacket packet = new DatagramPacket(buf, buf.length, address, Utils.DHTToClientPort);
