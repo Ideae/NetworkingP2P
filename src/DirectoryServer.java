@@ -84,6 +84,7 @@ public class DirectoryServer
         }
 
 
+        System.out.println("Server is now listening.");
         UpdateThread updThread = new UpdateThread();
         updThread.start();
 
@@ -109,7 +110,7 @@ class UpdateThread extends Thread {
     @Override
     public void run() {
         try {
-            DatagramSocket socket = new DatagramSocket(Utils.ClientToDHTPort);
+            DatagramSocket socket = new DatagramSocket(Utils.DHTServerListenPortFromClientUDP);
             while (true) {
                 try {
                     byte[] buf = new byte[256];
@@ -121,13 +122,13 @@ class UpdateThread extends Thread {
                     System.out.println(received);
                     String response;
                     if (received.equals("init")) {
-                        response = handleInit(packet.getAddress().getHostAddress(), Utils.DHTToClientPort);
+                        response = handleInit(packet.getAddress().getHostAddress());
                     } else if (received.startsWith("update")) {
                         response = handleUpdate(received, packet.getAddress().getHostAddress());
                     } else if (received.startsWith("query")) {
                         response = handleQuery(received);
                     } else if (received.startsWith("exit")) {
-                        response = handleExit(packet.getAddress().getHostAddress(), Utils.DHTToClientPort);
+                        response = handleExit(packet.getAddress().getHostAddress());
                     } else {
                         response = "invalid request: {" + received + "}";
                     }
@@ -149,7 +150,7 @@ class UpdateThread extends Thread {
             }
     }
 
-    String handleExit(String senderIP, int senderPort) {
+    String handleExit(String senderIP) {
         //System.out.println(senderIP);
         try  {
             Socket socket = new Socket(DirectoryServer.nextServerIP, Utils.DHTToDHTPort);
@@ -168,7 +169,7 @@ class UpdateThread extends Thread {
         return "no_response";
     }
 
-    String handleInit(String senderIP, int senderPort) {
+    String handleInit(String senderIP) {
         if (DirectoryServer.serverIPs.size() < 4) {
             //use tcp to get all records
                 try{
@@ -340,7 +341,7 @@ class DirectoryTCPThread extends Thread {
             DatagramSocket socket = new DatagramSocket();
             byte[] buf = returnMessage.getBytes();
             InetAddress address = InetAddress.getByName(p2pclient);
-            DatagramPacket packet = new DatagramPacket(buf, buf.length, address, Utils.DHTToClientPort);
+            DatagramPacket packet = new DatagramPacket(buf, buf.length, address, Utils.ClientListensFromDHTServerUDP);
             socket.send(packet);
         } else {
             //keep going tcp

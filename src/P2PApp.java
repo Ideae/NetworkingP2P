@@ -19,16 +19,13 @@ class P2PApp {
         while (true) {
             System.out.println("Enter IP of DHT Node:");
             String IP = sc.nextLine();
-            if (IP.isEmpty()) IP = "127.0.0.1";
-            System.out.println("Enter Port of DHT Node:");
-            String p = sc.nextLine();
-            if (p.isEmpty()) p = "4441";
-            int port = Integer.parseInt(p);
+
             try {
                 //p2pClient = new P2PClient(DHTPort, new ServerRecord(1, IP, port));
                 p2pClient = new P2PClient(IP);
             } catch (IOException e) {
                 System.out.println("Connection Error: " + e.getMessage() + ". Please try again.");
+                if (Utils.debug) e.printStackTrace();
                 continue;
             }
             break;

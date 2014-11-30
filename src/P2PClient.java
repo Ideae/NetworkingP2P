@@ -55,10 +55,10 @@ class P2PClient {
     {
         String ip = serverIPs.get(serverNum);
         DatagramSocket socket;
-        socket = new DatagramSocket(Utils.ClientToDHTPort);
+        socket = new DatagramSocket(Utils.ClientListensFromDHTServerUDP);
         byte[] buf = request.getBytes();
         InetAddress address = InetAddress.getByName(ip);
-        DatagramPacket packet = new DatagramPacket(buf, buf.length, address, Utils.DHTToClientPort);
+        DatagramPacket packet = new DatagramPacket(buf, buf.length, address, Utils.DHTServerListenPortFromClientUDP);
         socket.send(packet);
 
         // get response
@@ -76,7 +76,7 @@ class P2PClient {
         String hostName = record.ContentOwnerIP;
         System.out.println("Attempting to contact server");
         try {
-            Socket socket = new Socket(hostName, Utils.ClientToServerPort);
+            Socket socket = new Socket(hostName, Utils.FileTransferListenPort);
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader( new InputStreamReader(socket.getInputStream()));
             out.println("GET " + record.ContentName + " " + Utils.HTTP_1_1);

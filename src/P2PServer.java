@@ -21,7 +21,7 @@ class P2PServer extends Thread {
     public void run() {
 
         try {
-            serverSocket = new ServerSocket(Utils.ClientToServerPort);
+            serverSocket = new ServerSocket(Utils.FileTransferListenPort);
             while (true) {
                 System.out.println("Waiting for client");
                 final Socket clientSocket = serverSocket.accept();
@@ -31,7 +31,7 @@ class P2PServer extends Thread {
             System.out.println("Socket Closed.");
         } catch (IOException e) {
             System.out.println("Exception caught when trying to listen on port "
-                    + Utils.ClientToServerPort + " or listening for a connection");
+                    + Utils.FileTransferListenPort + " or listening for a connection");
             System.out.println(e.getMessage());
         } finally {
             try {
