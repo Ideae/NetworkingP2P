@@ -17,6 +17,7 @@ public class Utils
     static final int ClientToDHTPort = 40140;
     static final int DHTToClientPort = 40140;
 
+    static String defaultIPAddress = "127.0.0.1";
 
     public static int Hash(String contentName)
     {

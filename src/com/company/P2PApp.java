@@ -32,7 +32,8 @@ public class P2PApp {
             if (p.isEmpty()) p = "4441";
             int port = Integer.parseInt(p);
             try {
-                p2pClient = new P2PClient(DHTPort, new ServerRecord(1, IP, port));
+                //p2pClient = new P2PClient(DHTPort, new ServerRecord(1, IP, port));
+                p2pClient = new P2PClient(DHTPort, IP);
             } catch (IOException e) {
                 System.out.println("Connection Error: " + e.getMessage() + ". Please try again.");
                 continue;

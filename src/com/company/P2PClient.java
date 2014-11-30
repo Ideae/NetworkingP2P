@@ -10,22 +10,23 @@ public class P2PClient
 {
     private final int DHTPort;
     //static int FirstDirectoryServerPort = 4441;
-    TreeMap<Integer, ServerRecord> serverRecords = new TreeMap<>();
-    TreeMap<String, Integer> contentToDHTServer = new TreeMap<>();
+    HashMap<Integer, String> serverIPs = new HashMap<>();
+    HashMap<String, Integer> contentToDHTServer = new HashMap<>();
 
-    public P2PClient(int DHTPort, ServerRecord serverRecord) throws IOException {
+    public P2PClient(int DHTPort, String serverIP) throws IOException {
         this.DHTPort = DHTPort;
-        serverRecords.put(1, serverRecord);
+        serverIPs.put(1, serverIP);
         String response = CreateRequest("init", 1);
         System.out.println("Response: " + response);
         Scanner sc = new Scanner(response);
         while (sc.hasNext())
         {
-            int num = Integer.parseInt(sc.next());
-            String serverIP = sc.next();
-            int serverPort = Integer.parseInt(sc.next());
-            if (!serverRecords.containsKey(num))
-                serverRecords.put(num, new ServerRecord(num, serverIP, serverPort));
+            //int num = Integer.parseInt(sc.next());
+            String ip = sc.next();
+            int id = Integer.parseInt(sc.next());
+            //int serverPort = Integer.parseInt(sc.next());
+            if (!serverIPs.containsKey(id))
+                serverIPs.put(id, ip);
         }
     }
     void Exit() throws IOException
@@ -55,12 +56,12 @@ public class P2PClient
     }
     String CreateRequest(String request, int serverNum) throws IOException
     {
-        ServerRecord record = serverRecords.get(serverNum);
+        String ip = serverIPs.get(serverNum);
         DatagramSocket socket;
         socket = new DatagramSocket(DHTPort);
         byte[] buf = request.getBytes();
-        InetAddress address = InetAddress.getByName(record.IPAddress);
-        DatagramPacket packet = new DatagramPacket(buf, buf.length, address, record.portNumber);
+        InetAddress address = InetAddress.getByName(ip);
+        DatagramPacket packet = new DatagramPacket(buf, buf.length, address, Utils.DHTToClientPort);
         socket.send(packet);
 
         // get response
