@@ -1,25 +1,13 @@
 package com.company;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.util.List;
-import java.util.Scanner;
-import java.util.TreeMap;
-
+import java.io.*;
+import java.net.*;
+import java.util.*;
 /**
  * Created by zacktibia on 2014-11-26.
  */
 public class P2PClient
 {
-
     private final int DHTPort;
     //static int FirstDirectoryServerPort = 4441;
     TreeMap<Integer, ServerRecord> serverRecords = new TreeMap<>();
@@ -40,13 +28,10 @@ public class P2PClient
                 serverRecords.put(num, new ServerRecord(num, serverIP, serverPort));
         }
     }
-
-
     void Exit() throws IOException
     {
         CreateRequest("exit", 1);
     }
-
     void Query(String contentName) throws IOException
     {
         String request = "query " + contentName;
@@ -59,9 +44,7 @@ public class P2PClient
         ContentRecord peerProvider = ContentRecord.parseRecord(response);
         System.out.printf("The file %s can be found at the peer IP: %s\n", contentName, peerProvider.toString());
         RequestFile(peerProvider);
-
     }
-
     void Update(String contentName, int portNumber) throws IOException
     {
         String request = "update " + portNumber + " " + contentName;
@@ -70,7 +53,6 @@ public class P2PClient
         contentToDHTServer.put(contentName, serverNum);
         System.out.printf("Stored %s in server %d \n", contentName, serverNum);
     }
-
     String CreateRequest(String request, int serverNum) throws IOException
     {
         ServerRecord record = serverRecords.get(serverNum);
@@ -91,7 +73,6 @@ public class P2PClient
         socket.close();
         return received;
     }
-
     void RequestFile(ContentRecord record) {
 
         String hostName = record.ContentOwnerIP;
@@ -137,6 +118,4 @@ public class P2PClient
             e.printStackTrace();
         }
     }
-
-
 }
