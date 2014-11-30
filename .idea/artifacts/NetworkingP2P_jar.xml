@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" build-on-make="true" name="NetworkingP2P:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/NetworkingP2P_jar</output-path>
+    <output-path>$PROJECT_DIR$/jars</output-path>
     <root id="archive" name="DirectoryServer.jar">
       <element id="module-output" name="NetworkingP2P" />
     </root>
