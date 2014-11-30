@@ -68,7 +68,7 @@ public class P2PApp {
                 serverPort = Utils.ClientToServerPort;
             } else {
                 System.out.println("Enter Listen Port");
-                serverPort = sc.nextInt();
+                serverPort = Integer.parseInt(sc.nextLine());
             }
             PopulateFiles();
             p2pServer = new P2PServer(serverPort);
