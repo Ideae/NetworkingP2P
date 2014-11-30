@@ -38,9 +38,8 @@ public class P2PClient
         }
         while (true) {
             System.out.println("Please input your sharing folder name");
-            String name = sc.nextLine();
-            if (name.isEmpty()) name = "shares";
-            sharesDirectory = new File(name + "/");
+            String name = sc.nextLine(); if (name.isEmpty()) name = "shares";
+            sharesDirectory = new File( name + "/");
             if (!sharesDirectory.exists()) {
                 System.out.println("Directory does not exist, create?(y/n)");
                 if (Utils.YesOrNo(sc)) {
@@ -114,7 +113,6 @@ public class P2PClient
         RequestFile(peerProvider);
 
     }
-
     static void Update(String contentName, int portNumber) throws IOException
     {
         String request = "update " + portNumber + " " + contentName;
@@ -195,7 +193,7 @@ public class P2PClient
                 System.out.println("File Length Error");
                 return;
             }
-            File f = new File(sharesDirectory, record.ContentName);
+            File f = new File(sharesDirectory,record.ContentName);
             FileOutputStream fos = new FileOutputStream(f);
             for (int i = 0; i < length; i++) {
                 fos.write(in.read());
@@ -213,8 +211,7 @@ public class P2PClient
 
     //P2PServer Implementation.
 
-    public static void PopulateFiles(int portNumber) throws IOException
-    {
+    public static void PopulateFiles(int portNumber) throws IOException {
 
         File[] shares = sharesDirectory.listFiles();
         assert shares != null;
@@ -228,7 +225,7 @@ public class P2PClient
         try (
                 ServerSocket serverSocket = new ServerSocket(portNumber);
         ) {
-            while (true)
+            while(true)
             {
                 System.out.println("Waiting for client");
                 final Socket clientSocket = serverSocket.accept();
@@ -264,7 +261,7 @@ public class P2PClient
                                                     "Connection: close\n" +
                                                     "Date: " + new Date().toString() + "\n" +
                                                     "Last-Modified: " + new Date(requestedFile.lastModified()).toString() + "\n" +
-                                                    "Content-Length: " + requestedFile.length() + "\n" +
+                                                    "Content-Length: " + requestedFile.length() + "\n"+
                                                     "\n";
                                     out.print(response);
                                     FileInputStream fin = new FileInputStream(requestedFile);
@@ -299,10 +296,9 @@ public class P2PClient
 
     private static ArrayList<String> getHttpHeaders(BufferedReader in) throws IOException {
         ArrayList<String> headers = new ArrayList<>();
-        while (true)
-        {
+        while (true) {
             String line = in.readLine();
-            if (line.equals("")) break;
+            if(line.equals("")) break;
             headers.add(line);
         }
         return headers;
