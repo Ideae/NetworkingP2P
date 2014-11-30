@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -18,8 +19,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class DirectoryServer
 {
-    static final ConcurrentHashMap<Integer, String> serverIPs = new ConcurrentHashMap<Integer, String>();
-    static final ConcurrentHashMap<String, ArrayList<ContentRecord>> contentRecords = new ConcurrentHashMap<String, ArrayList<ContentRecord>>();
+    static final Map<Integer, String> serverIPs = new ConcurrentHashMap<Integer, String>();
+    static final Map<String, ArrayList<ContentRecord>> contentRecords = new ConcurrentHashMap<String, ArrayList<ContentRecord>>();
     static String thisServerIP, nextServerIP;
     static int serverid;
     //static int serverID;
@@ -46,8 +47,8 @@ public class DirectoryServer
         String Address = current.getHostAddress();
         System.out.println("IP of this DHT node is: " + Address);
         thisServerIP = Address;
-
-        if (!Utils.debug){
+        boolean tempDebug = true;
+        if (!tempDebug){//(!Utils.debug){
             System.out.println("Enter ServerID of this DHT Node:");
             String idString;
             idString = sc.nextLine();
@@ -195,7 +196,7 @@ class UpdateThread extends Thread {
             //return server records
             String message = "";
             for (int i = 1; i <= 4; i++) {
-                message += DirectoryServer.serverIPs.get(i);
+                message += DirectoryServer.serverIPs.get(i) + " " + i + "\n";
             }
             return message;
             }
@@ -286,7 +287,7 @@ class DirectoryTCPThread extends Thread {
         //int serverNumber = Integer.parseInt(sc.next());
         String firstServerIP = sc.next();
         RemoveContentRecords(clientIP);
-        System.out.println("Comparing ips: " + firstServerIP + " to " + DirectoryServer.thisServerIP);
+        //System.out.println("Comparing ips: " + firstServerIP + " to " + DirectoryServer.thisServerIP);
         if (!firstServerIP.equals(DirectoryServer.thisServerIP)) {
             //continue traversing dht ring
             try {
@@ -336,7 +337,7 @@ class DirectoryTCPThread extends Thread {
         if (firstserver.equals(DirectoryServer.thisServerIP)) {
             //send back upd
             if(Utils.debug)System.out.println("SEND BACK USING UDP TO " + p2pclient);
-            String returnMessage = firstserver + "\n";
+            String returnMessage = firstserver + " " + servNum + "\n";
             StoreServerRecord(firstserver, Integer.parseInt(servNum));
             while(sc.hasNext())
             {
