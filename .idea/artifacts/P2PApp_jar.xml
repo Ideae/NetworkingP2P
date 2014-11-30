@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="P2PApp:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/P2PApp_jar</output-path>
+    <root id="archive" name="P2PApp.jar">
+      <element id="module-output" name="NetworkingP2P" />
+    </root>
+  </artifact>
+</component>
