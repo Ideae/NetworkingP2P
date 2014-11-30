@@ -13,6 +13,7 @@ class P2PApp {
     private static int serverPort;
 
     public static void main(String[] args) throws IOException {
+        System.out.println("\n------P2PClient------\n");
         int DHTPort;
         if (args.length == 1) {
             DHTPort = Integer.parseInt(args[0]);

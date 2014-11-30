@@ -38,6 +38,8 @@ public class DirectoryServer
         //serverID = portNumber % 10;
         Scanner sc = new Scanner(System.in);
 
+        System.out.println("\n------DHT SERVER------\n");
+
         System.out.println("Enter ServerID of this DHT Node:");
         String idString;
         idString = sc.nextLine();
@@ -61,7 +63,7 @@ public class DirectoryServer
         //thisServerRecord = new ServerRecord(IP, portNumber);
         thisServerIP = Address;
 
-        System.out.println("Enter IP of the predecessor DHT Node:");
+        System.out.println("Enter IP of the successor DHT Node:");
         String NextIP = sc.nextLine();
         if (NextIP.isEmpty()) NextIP = Utils.defaultIPAddress;
         //int nextID = (serverID % 4) + 1;
