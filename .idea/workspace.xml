@@ -6,11 +6,11 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3fa1545-1707-4542-96d7-89a5f32bc4e1" name="Default" comment="">
+    <list default="true" id="b3fa1545-1707-4542-96d7-89a5f32bc4e1" name="Default" comment="reallythinkthatsit2">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jars/DirectoryServer.jar" afterPath="$PROJECT_DIR$/jars/DirectoryServer.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jars/P2PApp.jar" afterPath="$PROJECT_DIR$/jars/P2PApp.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/P2PClient.java" afterPath="$PROJECT_DIR$/src/P2PClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/P2PApp.java" afterPath="$PROJECT_DIR$/src/P2PApp.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="NetworkingP2P.iws" />
@@ -39,8 +39,8 @@
       <file leaf-file-name="DirectoryServer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/DirectoryServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5984">
-              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="391" max-vertical-offset="5984">
+              <caret line="30" column="26" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -59,8 +59,8 @@
       <file leaf-file-name="P2PApp.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/P2PApp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="1666">
-              <caret line="24" column="37" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="918" max-vertical-offset="1785">
+              <caret line="72" column="29" selection-start-line="72" selection-start-column="29" selection-end-line="72" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -69,7 +69,7 @@
       <file leaf-file-name="Utils.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Utils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="918">
+            <state vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="918">
               <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
               <folding />
             </state>
@@ -79,7 +79,7 @@
       <file leaf-file-name="P2PServer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/P2PServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1802">
+            <state vertical-scroll-proportion="0.0" vertical-offset="374" max-vertical-offset="1802">
               <caret line="32" column="43" selection-start-line="32" selection-start-column="43" selection-end-line="32" selection-end-column="43" />
               <folding />
             </state>
@@ -89,7 +89,7 @@
       <file leaf-file-name="P2PClient.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/P2PClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2431">
+            <state vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="2431">
               <caret line="8" column="71" selection-start-line="8" selection-start-column="71" selection-end-line="8" selection-end-column="71" />
               <folding />
             </state>
@@ -149,7 +149,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -236,8 +235,23 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="NetworkingP2P" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="NetworkingP2P" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jars" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -671,7 +685,13 @@
       <option name="project" value="LOCAL" />
       <updated>1417368719861</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="reallythinkthatsit">
+      <created>1417369842147</created>
+      <option name="number" value="00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1417369842147</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -746,7 +766,8 @@
     <MESSAGE value="Needlessly long variable names." />
     <MESSAGE value="update&#10;" />
     <MESSAGE value="dontknow" />
-    <option name="LAST_COMMIT_MESSAGE" value="dontknow" />
+    <MESSAGE value="reallythinkthatsit" />
+    <option name="LAST_COMMIT_MESSAGE" value="reallythinkthatsit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1117,10 +1138,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DirectoryServer.java">
+    <entry file="file://$PROJECT_DIR$/src/P2PClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5984">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2431">
+          <caret line="8" column="71" selection-start-line="8" selection-start-column="71" selection-end-line="8" selection-end-column="71" />
           <folding />
         </state>
       </provider>
@@ -1141,18 +1162,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/P2PApp.java">
+    <entry file="file://$PROJECT_DIR$/src/DirectoryServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="1666">
-          <caret line="24" column="37" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="391" max-vertical-offset="5984">
+          <caret line="30" column="26" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/P2PClient.java">
+    <entry file="file://$PROJECT_DIR$/src/P2PApp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2431">
-          <caret line="8" column="71" selection-start-line="8" selection-start-column="71" selection-end-line="8" selection-end-column="71" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="918" max-vertical-offset="1785">
+          <caret line="72" column="29" selection-start-line="72" selection-start-column="29" selection-end-line="72" selection-end-column="29" />
           <folding />
         </state>
       </provider>

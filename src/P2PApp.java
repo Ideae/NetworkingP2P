@@ -12,6 +12,7 @@ class P2PApp {
     private static P2PClient p2pClient;
     private static P2PServer p2pServer;
     private static int serverPort;
+    private static boolean receiveOnlyMode = false;
 
     public static void main(String[] args) throws IOException {
         System.out.println("\n------P2PClient------\n");
@@ -52,6 +53,7 @@ class P2PApp {
         System.out.println("P2PClient: Connected to DHT Ring, broadcast Files? (y/n)");
 
         if (Utils.YesOrNo(sc)) {
+            receiveOnlyMode = true;
             System.out.println("P2PServer: Current sharing folder is " + sharesDirectory.getAbsolutePath());
 
             PopulateFiles();
@@ -65,6 +67,11 @@ class P2PApp {
             System.out.println("P2PClient: Input a command(Update, Query or Exit)");
             String command = sc.nextLine();
             if (command.equalsIgnoreCase("update")) {
+                if (receiveOnlyMode)
+                {
+                    System.out.println("P2PClient: Error: Unable to Update in Receive-Only-Mode.");
+                    continue;
+                }
                 System.out.println("P2PClient: Enter the file you'd like to share. (File must be in shares directory)");
                 String filename = sc.nextLine();
                 p2pClient.Update(filename);
