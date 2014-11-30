@@ -47,7 +47,7 @@ public class DirectoryServer
         String Address = current.getHostAddress();
         System.out.println("IP of this DHT node is: " + Address);
         thisServerIP = Address;
-        boolean tempDebug = true;
+        boolean tempDebug = false;
         if (!tempDebug){//(!Utils.debug){
             System.out.println("Enter ServerID of this DHT Node:");
             String idString;
@@ -333,7 +333,7 @@ class DirectoryTCPThread extends Thread {
         String servNum = sc.next();
 
         String newMessage = fullmessage + DirectoryServer.thisServerIP + " " + DirectoryServer.serverid;
-        System.out.println("Comparing ips: " + firstserver + " to " + DirectoryServer.thisServerIP);
+        //System.out.println("Comparing ips: " + firstserver + " to " + DirectoryServer.thisServerIP);
         if (firstserver.equals(DirectoryServer.thisServerIP)) {
             //send back upd
             if(Utils.debug)System.out.println("SEND BACK USING UDP TO " + p2pclient);

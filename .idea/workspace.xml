@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="P2PApp:jar" />
+      <artifact name="NetworkingP2P:jar" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
@@ -11,10 +11,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jars/P2PApp.jar" afterPath="$PROJECT_DIR$/jars/P2PApp.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DirectoryServer.java" afterPath="$PROJECT_DIR$/src/DirectoryServer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/P2PApp.java" afterPath="$PROJECT_DIR$/src/P2PApp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/P2PClient.java" afterPath="$PROJECT_DIR$/src/P2PClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/P2PServer.java" afterPath="$PROJECT_DIR$/src/P2PServer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Utils.java" afterPath="$PROJECT_DIR$/src/Utils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="NetworkingP2P.iws" />
@@ -43,7 +39,7 @@
       <file leaf-file-name="DirectoryServer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/DirectoryServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="59" max-vertical-offset="6426">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6426">
               <caret line="24" column="24" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
               <folding />
             </state>
@@ -104,7 +100,7 @@
         <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.039170507" vertical-offset="0" max-vertical-offset="434">
-              <caret line="1" column="18" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
+              <caret line="1" column="27" selection-start-line="1" selection-start-column="27" selection-end-line="1" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -388,6 +384,7 @@
     </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="JAR_PATH" value="$PROJECT_DIR$/jars/P2PApp.jar" />
       <envs />
       <method />
     </configuration>
@@ -676,7 +673,13 @@
       <option name="project" value="LOCAL" />
       <updated>1417351485619</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="dontknow">
+      <created>1417366936752</created>
+      <option name="number" value="00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1417366936752</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -750,7 +753,8 @@
     <MESSAGE value="debug" />
     <MESSAGE value="Needlessly long variable names." />
     <MESSAGE value="update&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="update&#10;" />
+    <MESSAGE value="dontknow" />
+    <option name="LAST_COMMIT_MESSAGE" value="dontknow" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1073,14 +1077,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DirectoryServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="59" max-vertical-offset="6426">
-          <caret line="24" column="24" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ContentRecord.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="696">
@@ -1121,10 +1117,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/DirectoryServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6426">
+          <caret line="24" column="24" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.039170507" vertical-offset="0" max-vertical-offset="434">
-          <caret line="1" column="18" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
+          <caret line="1" column="27" selection-start-line="1" selection-start-column="27" selection-end-line="1" selection-end-column="27" />
           <folding />
         </state>
       </provider>
