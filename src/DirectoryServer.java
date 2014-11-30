@@ -183,6 +183,7 @@ class UpdateThread extends Thread {
                     if(Utils.debug)System.out.println("About to write");
                     String message = "init\n" + senderIP + "\n" + DirectoryServer.thisServerIP + " " + DirectoryServer.serverid;
                     out.println(message);
+                    out.flush();
 
                 } catch (UnknownHostException e) {
                     System.err.println("Don't know about host " + DirectoryServer.nextServerIP);
