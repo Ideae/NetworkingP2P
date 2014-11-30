@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.Scanner;
 
 /**
@@ -19,7 +20,8 @@ class P2PApp {
         while (true) {
             System.out.println("Enter IP of DHT Node:");
             String IP = sc.nextLine();
-
+            //InetAddress inad = InetAddress.getByName(IP);
+            IP = InetAddress.getByName(IP).getHostAddress();
             try {
                 //p2pClient = new P2PClient(DHTPort, new ServerRecord(1, IP, port));
                 p2pClient = new P2PClient(IP);

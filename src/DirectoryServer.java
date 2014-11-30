@@ -180,11 +180,12 @@ class UpdateThread extends Thread {
                     BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     if(Utils.debug)System.out.println("About to read");
                     in.readLine();
-                    if(Utils.debug)System.out.println("About to write");
-                    String message = "init\n" + senderIP + "\n" + DirectoryServer.thisServerIP + " " + DirectoryServer.serverid;
+
+                    String message = "init\n" + senderIP + "\n" + DirectoryServer.thisServerIP + " " + DirectoryServer.serverid + "\nendtaco";
+                    if(Utils.debug)System.out.println("About to write message: ("+message+")");
                     out.println(message);
                     out.flush();
-
+                    if(Utils.debug)System.out.println("flushed");
                 } catch (UnknownHostException e) {
                     System.err.println("Don't know about host " + DirectoryServer.nextServerIP);
                 } catch (IOException e) {
@@ -252,12 +253,16 @@ class DirectoryTCPThread extends Thread {
             inputLine = in.readLine();
             if(Utils.debug)System.out.println("inputLine was received: " + inputLine);
             if (inputLine.equals("init")) {
+                if(Utils.debug)System.out.println("Got an init");
                 String fullmessage = in.readLine() + "\n";
+                if(Utils.debug)System.out.println("fullmessage 1:(" + fullmessage + ")");
                 while ((inputLine = in.readLine()) != null) {
+                    if (inputLine.equals("endtaco")) break;
                     if (!inputLine.isEmpty())
                         fullmessage += inputLine + "\n";
+                    if(Utils.debug)System.out.println("fullmessage 2:(" + fullmessage + ")");
                 }
-                if(Utils.debug)System.out.print("fullmessage:\n" + fullmessage);
+                if(Utils.debug)System.out.print("fullmessage 3:\n" + fullmessage);
                 SendInitMessage(fullmessage);
 
             } else if (inputLine.equals("exit")) {
@@ -283,8 +288,8 @@ class DirectoryTCPThread extends Thread {
         //int serverNumber = Integer.parseInt(sc.next());
         String firstServerIP = sc.next();
         RemoveContentRecords(clientIP);
-
-        if (firstServerIP != DirectoryServer.thisServerIP) {
+        System.out.println("Comparing ips: " + firstServerIP + " to " + DirectoryServer.thisServerIP);
+        if (!firstServerIP.equals(DirectoryServer.thisServerIP)) {
             //continue traversing dht ring
             try {
                 Socket socket = new Socket(DirectoryServer.nextServerIP, Utils.DHTToDHTPort);
@@ -329,7 +334,8 @@ class DirectoryTCPThread extends Thread {
         String servNum = sc.next();
 
         String newMessage = fullmessage + DirectoryServer.thisServerIP + " " + DirectoryServer.serverid;
-        if (firstserver == DirectoryServer.thisServerIP) {
+        System.out.println("Comparing ips: " + firstserver + " to " + DirectoryServer.thisServerIP);
+        if (firstserver.equals(DirectoryServer.thisServerIP)) {
             //send back upd
             if(Utils.debug)System.out.println("SEND BACK USING UDP TO " + p2pclient);
             String returnMessage = firstserver + "\n";
@@ -358,7 +364,7 @@ class DirectoryTCPThread extends Thread {
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 in.readLine();
                 if(Utils.debug) System.out.println(newMessage);
-                out.println("init\n" + newMessage);
+                out.println("init\n" + newMessage + "\nendtaco");
             } catch (UnknownHostException e) {
                 System.err.println("Don't know about host " + DirectoryServer.nextServerIP);
             } catch (IOException e) {
