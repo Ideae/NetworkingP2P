@@ -1,17 +1,27 @@
 package com.company;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.List;
+import java.util.Scanner;
+import java.util.TreeMap;
+
 /**
  * Created by zacktibia on 2014-11-26.
  */
-public class P2PClient
-{
+class P2PClient {
     private final int DHTPort;
     //static int FirstDirectoryServerPort = 4441;
-    TreeMap<Integer, ServerRecord> serverRecords = new TreeMap<>();
-    TreeMap<String, Integer> contentToDHTServer = new TreeMap<>();
+    private final TreeMap<Integer, ServerRecord> serverRecords = new TreeMap<>();
+    private final TreeMap<String, Integer> contentToDHTServer = new TreeMap<>();
 
     public P2PClient(int DHTPort, ServerRecord serverRecord) throws IOException {
         this.DHTPort = DHTPort;
@@ -50,8 +60,10 @@ public class P2PClient
         String request = "update " + portNumber + " " + contentName;
         int serverNum = Utils.Hash(contentName);
         String response = CreateRequest(request, serverNum);
-        contentToDHTServer.put(contentName, serverNum);
+        System.out.println(response);
         System.out.printf("Stored %s in server %d \n", contentName, serverNum);
+        contentToDHTServer.put(contentName, serverNum);
+
     }
     String CreateRequest(String request, int serverNum) throws IOException
     {

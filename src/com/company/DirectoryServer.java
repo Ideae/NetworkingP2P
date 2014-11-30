@@ -17,14 +17,13 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by zacktibia on 2014-11-26.
  */
-public class DirectoryServer
-{
-    static ConcurrentHashMap<Integer, ServerRecord> serverRecords = new ConcurrentHashMap<>();
-    static ConcurrentHashMap<String, ArrayList<ContentRecord>> contentRecords = new ConcurrentHashMap<>();
+class DirectoryServer {
+    static final ConcurrentHashMap<Integer, ServerRecord> serverRecords = new ConcurrentHashMap<>();
+    static final ConcurrentHashMap<String, ArrayList<ContentRecord>> contentRecords = new ConcurrentHashMap<>();
+    private static final String defaultIPAddress = "127.0.0.1";
     static ServerRecord thisServerRecord;
     static ServerRecord nextServerRecord;
     static int serverID;
-    private static String defaultIPAddress = "127.0.0.1";
     //ports: 40140 - 40149
 
     public static void main(String[] args) throws IOException {
@@ -52,7 +51,7 @@ public class DirectoryServer
         updThread.start();
 
         try (
-                ServerSocket serverSocket = new ServerSocket(portNumber);
+                ServerSocket serverSocket = new ServerSocket(portNumber)
         ) {
             while (true)
             {
@@ -69,8 +68,7 @@ public class DirectoryServer
 }
 
 class UpdateThread extends Thread {
-    protected static DatagramSocket socket = null;
-    int portNumber;
+    private final int portNumber;
 
     UpdateThread(int portNumber) {
         this.portNumber = portNumber;
@@ -79,7 +77,7 @@ class UpdateThread extends Thread {
     @Override
     public void run() {
         try {
-            socket = new DatagramSocket(portNumber);
+            DatagramSocket socket = new DatagramSocket(portNumber);
             while (true) {
                 try {
                     byte[] buf = new byte[256];
@@ -89,7 +87,7 @@ class UpdateThread extends Thread {
 
                     String received = new String(packet.getData(), 0, packet.getLength());
                     System.out.println(received);
-                    String response = "";
+                    String response;
                     if (received.equals("init")) {
                         response = handleInit(packet.getAddress().getHostAddress(), packet.getPort());
                     } else if (received.startsWith("update")) {
@@ -124,7 +122,7 @@ class UpdateThread extends Thread {
         try (
                 Socket socket = new Socket(DirectoryServer.nextServerRecord.IPAddress, DirectoryServer.nextServerRecord.portNumber);
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
         ) {
             in.readLine();
             String message = "exit\n" + senderIP + " " + senderPort + " " + DirectoryServer.serverID;
@@ -145,7 +143,7 @@ class UpdateThread extends Thread {
                 try (
                         Socket socket = new Socket(DirectoryServer.nextServerRecord.IPAddress, DirectoryServer.nextServerRecord.portNumber);
                         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
                 ) {
                     in.readLine();
                     String message = "init\n" + senderIP + " " + senderPort + "\n" + DirectoryServer.thisServerRecord.toString();
@@ -184,7 +182,7 @@ class UpdateThread extends Thread {
         Scanner sc = new Scanner(received);
         sc.next();
         String contentName = sc.next();
-        String response = "";
+        String response;
         if (!DirectoryServer.contentRecords.containsKey(contentName)) {
             response = "404 content not found";
         } else {
@@ -216,26 +214,26 @@ class DirectoryTCPThread extends Thread {
             outputLine = "request received from server " + DirectoryServer.serverID;
             out.println(outputLine);
             inputLine = in.readLine();
-            if (inputLine.equals("init"))
-            {
-                String fullmessage = in.readLine() + "\n";
-                while ((inputLine = in.readLine()) != null)
-                {
-                    if (!inputLine.isEmpty())
-                        fullmessage += inputLine + "\n";
-                }
-                //System.out.print("fullmessage:\n" + fullmessage);
-                SendInitMessage(fullmessage);
-            } else if (inputLine.equals("exit"))
-            {
-                SendExitMessage(in.readLine());
-            } else {
-                do
-                {
-                    //System.out.println(inputLine);
-                    outputLine = "I'm a server: " + counter++;
-                    out.println(outputLine);
-                } while ((inputLine = in.readLine()) != null);
+            switch (inputLine) {
+                case "init":
+                    String fullmessage = in.readLine() + "\n";
+                    while ((inputLine = in.readLine()) != null) {
+                        if (!inputLine.isEmpty())
+                            fullmessage += inputLine + "\n";
+                    }
+                    //System.out.print("fullmessage:\n" + fullmessage);
+                    SendInitMessage(fullmessage);
+                    break;
+                case "exit":
+                    SendExitMessage(in.readLine());
+                    break;
+                default:
+                    do {
+                        //System.out.println(inputLine);
+                        outputLine = "I'm a server: " + counter++;
+                        out.println(outputLine);
+                    } while ((inputLine = in.readLine()) != null);
+                    break;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -254,7 +252,7 @@ class DirectoryTCPThread extends Thread {
             try (
                     Socket socket = new Socket(DirectoryServer.nextServerRecord.IPAddress, DirectoryServer.nextServerRecord.portNumber);
                     PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
             ) {
                 in.readLine();
                 out.println("exit\n" + clientInfo);
@@ -293,7 +291,7 @@ class DirectoryTCPThread extends Thread {
         String p2pclient = sc.nextLine();
         String firstserver = sc.nextLine();
 
-        String newMessage = fullmessage += DirectoryServer.thisServerRecord.toString();
+        String newMessage = fullmessage + DirectoryServer.thisServerRecord.toString();
         if (new Scanner(firstserver).nextInt() == DirectoryServer.serverID) {
             //send back upd
             // System.out.println("SEND BACK USING UDP TO " + p2pclient);
@@ -322,7 +320,7 @@ class DirectoryTCPThread extends Thread {
             try (
                     Socket socket = new Socket(DirectoryServer.nextServerRecord.IPAddress, DirectoryServer.nextServerRecord.portNumber);
                     PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
             ) {
                 in.readLine();
                 out.println("init\n" + newMessage);
