@@ -64,20 +64,23 @@ class P2PApp {
         }
 
         while (true) {
-            String line = sc.nextLine();
-            Scanner scLine = new Scanner(line);
-            String command = scLine.next();
-            if (command.equals("update")) {
-                String filename = scLine.next();
+            System.out.println("Input a command(Update, Query or Exit)");
+            String command = sc.nextLine();
+            if (command.equalsIgnoreCase("update")) {
+                System.out.println("Enter the file you'd like to share. (File must be in shares directory)");
+                String filename = sc.next();
                 p2pClient.Update(filename);
-            } else if (command.equals("query")) {
-                String filename = scLine.next();
+            } else if (command.equalsIgnoreCase("query")) {
+                System.out.println("Enter the file you'd like to download.");
+                String filename = sc.next();
                 p2pClient.Query(filename);
-            } else if (command.equals("exit")) {
+            } else if (command.equalsIgnoreCase("exit")) {
                 p2pClient.Exit();
                 p2pServer.Finish();
                 System.exit(1);
                 return;
+            }else{
+                System.out.println("Input not Accepted.");
             }
         }
     }

@@ -20,8 +20,6 @@ public class DirectoryServer
 {
     static final ConcurrentHashMap<Integer, String> serverIPs = new ConcurrentHashMap<Integer, String>();
     static final ConcurrentHashMap<String, ArrayList<ContentRecord>> contentRecords = new ConcurrentHashMap<String, ArrayList<ContentRecord>>();
-    //static ServerRecord thisServerRecord;
-    //static ServerRecord nextServerRecord;
     static String thisServerIP, nextServerIP;
     static int serverid;
     //static int serverID;
