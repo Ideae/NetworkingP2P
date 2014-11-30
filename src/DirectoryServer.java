@@ -28,7 +28,7 @@ public class DirectoryServer
     static
     {
         testMap = new HashMap<Integer, String>();
-        testMap.put(1, "141.117.57.40");
+        testMap.put(1, "14.117.57.40");
         testMap.put(2, "141.117.57.42");
         testMap.put(3, "141.117.57.41");
         testMap.put(4, "141.117.57.46");
