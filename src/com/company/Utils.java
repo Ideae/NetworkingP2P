@@ -1,5 +1,8 @@
 package com.company;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -7,6 +10,14 @@ import java.util.Scanner;
  */
 public class Utils
 {
+    static final String HTTP_1_1 = "HTTP/1.1";
+    static final int ClientToServerPort = 40140;
+    static final int ServerToClientPort = 40140;
+    static final int DHTToDHTPort = 40141;
+    static final int ClientToDHTPort = 40140;
+    static final int DHTToClientPort = 40140;
+
+
     public static int Hash(String contentName)
     {
         int total = 0;
@@ -27,5 +38,15 @@ public class Utils
             else
                 System.out.println("Incorrect input, try again");
         }
+    }
+
+    static ArrayList<String> getHttpHeaders(BufferedReader in) throws IOException {
+        ArrayList<String> headers = new ArrayList<>();
+        while (true) {
+            String line = in.readLine();
+            if (line.equals("")) break;
+            headers.add(line);
+        }
+        return headers;
     }
 }
